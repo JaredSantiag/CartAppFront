@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom"
 import { CatalogView } from "../components/CatalogView"
 import { CartView } from "../components/CartView"
+import { ProductsList } from "../components/ProductsList"
 
 export const CartRoutes = ({handlerAddProductCart, cartItems, handlerDeleteCart}) => {
     return (
@@ -24,6 +25,11 @@ export const CartRoutes = ({handlerAddProductCart, cartItems, handlerDeleteCart}
             <Route
                 path='/'
                 element={<Navigate to={'/catalog'} />} />
+
+            <Route
+                path='list'
+                element={<ProductsList/>}
+            />
         </Routes>
     )
 }
