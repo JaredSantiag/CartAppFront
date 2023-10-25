@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom"
 import { CatalogView } from "../components/CatalogView"
 import { CartView } from "../components/CartView"
 import { ProductsList } from "../components/ProductsList"
+import { ProductForm } from "../components/ProductForm"
 
 export const CartRoutes = ({handlerAddProductCart, cartItems, handlerDeleteCart}) => {
     return (
@@ -28,8 +29,11 @@ export const CartRoutes = ({handlerAddProductCart, cartItems, handlerDeleteCart}
 
             <Route
                 path='list'
-                element={<ProductsList/>}
-            />
+                element={<ProductsList/>}/>
+
+            <Route
+                path='form'
+                element={<ProductForm/>}/>   
         </Routes>
     )
 }
