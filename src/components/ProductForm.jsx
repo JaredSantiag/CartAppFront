@@ -6,7 +6,7 @@ const initialProductForm = {
     price:0
 }
 
-export const ProductForm = () => {
+export const ProductForm = ({handlerAddProduct}) => {
 
     const [productForm, setProductForm] = useState(initialProductForm);
 
@@ -29,7 +29,9 @@ export const ProductForm = () => {
             return;
         }
 
-        console.log(productForm);
+        //console.log(productForm);
+
+        handlerAddProduct(productForm);
         setProductForm(initialProductForm);
     }
 

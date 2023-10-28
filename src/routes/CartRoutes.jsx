@@ -4,12 +4,12 @@ import { CartView } from "../components/CartView"
 import { ProductsList } from "../components/ProductsList"
 import { ProductForm } from "../components/ProductForm"
 
-export const CartRoutes = ({handlerAddProductCart, cartItems, handlerDeleteCart}) => {
+export const CartRoutes = ({products, handlerAddProduct, handlerAddProductCart, cartItems, handlerDeleteCart}) => {
     return (
         <Routes>
             <Route
                 path='catalog'
-                element={<CatalogView handler={handlerAddProductCart} />} />
+                element={<CatalogView products={products} handler={handlerAddProductCart} />} />
 
             <Route
                 path='cart'
@@ -29,11 +29,11 @@ export const CartRoutes = ({handlerAddProductCart, cartItems, handlerDeleteCart}
 
             <Route
                 path='list'
-                element={<ProductsList/>}/>
+                element={<ProductsList products={products}/>}/>
 
             <Route
                 path='form'
-                element={<ProductForm/>}/>   
+                element={<ProductForm handlerAddProduct={handlerAddProduct}/>}/>   
         </Routes>
     )
 }

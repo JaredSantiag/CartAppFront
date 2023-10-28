@@ -1,9 +1,6 @@
-import { getProducts } from "../services/productService";
 import { ProductRow } from "./ProductRow";
 
-export const ProductsList = () => {
-
-    const products = getProducts();
+export const ProductsList = ({products}) => {
 
     return (
         <table className="table table-hover table-striped">

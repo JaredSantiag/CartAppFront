@@ -2,14 +2,7 @@ import { useEffect, useState } from "react";
 import { getProducts } from "../services/productService";
 import { ProductCardView } from "./ProductCardView";
 
-export const CatalogView = ({ handler }) => {
-    
-    const [products, setProducts] = useState([]);
-    
-    useEffect(
-     () => {
-         setProducts(getProducts());
-     }, []);
+export const CatalogView = ({ products, handler }) => {
 
     return (
         <>
