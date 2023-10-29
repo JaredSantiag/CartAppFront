@@ -1,4 +1,9 @@
-export const ProductRow = ({ id,name,price }) => {
+export const ProductRow = ({ id,name,price,handlerRemoveProduct }) => {
+    
+    const onRemoveProduct = (id) => {
+        handlerRemoveProduct(id);
+    }
+    
     return (
         <tr>
             <td>{id}</td>
@@ -10,7 +15,10 @@ export const ProductRow = ({ id,name,price }) => {
                 </button>
             </td>
             <td>
-                <button type="button" className="btn btn-danger btn-sm">
+                <button 
+                    type="button" 
+                    className="btn btn-danger btn-sm"
+                    onClick={() => onRemoveProduct(id)}>
                     remove
                 </button>
             </td>

@@ -21,10 +21,7 @@ export const Navbar = () => {
                             <NavLink className={'nav-link'} to="/cart">Cart</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink className={'nav-link'} to="/list">Products</NavLink>
-                        </li>
-                        <li className="nav-item">
-                            <NavLink className={'nav-link'} to="/form">Form</NavLink>
+                            <NavLink className={'nav-link'} to="/admin">Admin</NavLink>
                         </li>
                     </ul>
                 </div>

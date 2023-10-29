@@ -1,12 +1,6 @@
 import { useState } from "react";
 
-const initialProductForm = {
-    name:'',
-    description:'',
-    price:0
-}
-
-export const ProductForm = ({handlerAddProduct}) => {
+export const ProductForm = ({handlerAddProduct, initialProductForm}) => {
 
     const [productForm, setProductForm] = useState(initialProductForm);
 

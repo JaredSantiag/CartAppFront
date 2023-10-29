@@ -4,12 +4,16 @@ import { CartView } from "../components/CartView"
 import { ProductsList } from "../components/ProductsList"
 import { ProductForm } from "../components/ProductForm"
 
-export const CartRoutes = ({products, handlerAddProduct, handlerAddProductCart, cartItems, handlerDeleteCart}) => {
+export const CartRoutes = ({products,initialProductForm, handlerAddProduct, handlerRemoveProduct, handlerAddProductCart, cartItems, handlerDeleteCart}) => {
     return (
         <Routes>
             <Route
                 path='catalog'
-                element={<CatalogView products={products} handler={handlerAddProductCart} />} />
+                element={(
+                    products.length===0
+                    ? <div className="alert alert-warning">No hay producctos en el sisteema</div>
+                    : <CatalogView products={products} handler={handlerAddProductCart} />
+                )} />
 
             <Route
                 path='cart'
@@ -28,12 +32,19 @@ export const CartRoutes = ({products, handlerAddProduct, handlerAddProductCart, 
                 element={<Navigate to={'/catalog'} />} />
 
             <Route
-                path='list'
-                element={<ProductsList products={products}/>}/>
-
-            <Route
-                path='form'
-                element={<ProductForm handlerAddProduct={handlerAddProduct}/>}/>   
+                path='admin'
+                element={(
+                    <div className="row">
+                        <div className="col">
+                            <ProductForm initialProductForm={initialProductForm} handlerAddProduct={handlerAddProduct}/>
+                        </div>
+                        <div className="col">
+                            {products.length===0
+                            ? <div className="alert alert-warning">No hay producctos en el sistema</div>
+                            : <ProductsList products={products} handlerRemoveProduct={handlerRemoveProduct}/>}
+                        </div>
+                    </div>
+                )}/>
         </Routes>
     )
 }

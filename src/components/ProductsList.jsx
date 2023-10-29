@@ -1,6 +1,6 @@
 import { ProductRow } from "./ProductRow";
 
-export const ProductsList = ({products}) => {
+export const ProductsList = ({products, handlerRemoveProduct}) => {
 
     return (
         <table className="table table-hover table-striped">
@@ -20,7 +20,8 @@ export const ProductsList = ({products}) => {
                         key={id} 
                         id={id} 
                         name={name} 
-                        price={price} />
+                        price={price} 
+                        handlerRemoveProduct={handlerRemoveProduct}/>
                     ))
                 }
             </tbody>

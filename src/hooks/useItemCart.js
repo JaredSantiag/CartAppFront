@@ -1,10 +1,6 @@
 import { useReducer, useEffect } from "react"
 import { itemsReducer } from "../reducer/itemsReducer";
 import { AddProductCart, DeleteProductCart, UpdateQuantityProductCart } from "../reducer/itemsActions";
-import { productReducer } from "../reducer/productReducer";
-import { getProducts } from "../services/productService";
-
-const initialProducts = getProducts();
 
 const initialCartItems = JSON.parse(sessionStorage.getItem('cart')) || [];
 
@@ -15,15 +11,6 @@ export const useItemsCart = () => {
     useEffect(() => {
         sessionStorage.setItem('cart', JSON.stringify(cartItems));
     },[cartItems])
-
-    const [products, dispatchProducts] = useReducer(productReducer, initialProducts);
-
-    const handlerAddProduct = (product) => {
-        dispatchProducts({
-            type: 'addPruduct',
-            payload: product
-        })
-    }
 
     const handlerAddProductCart = (product) => {
 
@@ -49,9 +36,7 @@ export const useItemsCart = () => {
     }
 
     return {
-        products,
         cartItems,
-        handlerAddProduct,
         handlerAddProductCart,
         handlerDeleteCart
     }
