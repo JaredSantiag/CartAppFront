@@ -5,8 +5,18 @@ import { CartRoutes } from "./routes/CartRoutes";
 
 export const CartApp = () => {
     
-    const { products, initialProductForm, handlerAddProduct, handlerRemoveProduct,} = useProduct();
-    const { cartItems, handlerAddProductCart, handlerDeleteCart } = useItemsCart();
+    const { products, 
+            initialProductForm, 
+            productSelected, 
+            handlerAddProduct, 
+            handlerRemoveProduct, 
+            handlerProductSelectForm
+        } = useProduct();
+
+    const { cartItems, 
+            handlerAddProductCart, 
+            handlerDeleteCart
+        } = useItemsCart();
 
     return (<>
         <Navbar/>
@@ -17,8 +27,10 @@ export const CartApp = () => {
                 products={products}
                 cartItems={cartItems} 
                 initialProductForm ={initialProductForm}
+                productSelected={productSelected}
                 handlerAddProduct={handlerAddProduct} 
                 handlerRemoveProduct={handlerRemoveProduct}
+                handlerProductSelectForm={handlerProductSelectForm}
                 handlerAddProductCart={handlerAddProductCart} 
                 handlerDeleteCart={handlerDeleteCart}/>
         </div>

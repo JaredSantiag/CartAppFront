@@ -1,8 +1,4 @@
-export const ProductRow = ({ id,name,price,handlerRemoveProduct }) => {
-    
-    const onRemoveProduct = (id) => {
-        handlerRemoveProduct(id);
-    }
+export const ProductRow = ({ id,name,price,description,handlerRemoveProduct,handlerProductSelectForm }) => {
     
     return (
         <tr>
@@ -10,7 +6,15 @@ export const ProductRow = ({ id,name,price,handlerRemoveProduct }) => {
             <td>{name}</td>
             <td>{price}</td>
             <td>
-                <button type="button" className="btn btn-secondary btn-sm">
+                <button 
+                    type="button" 
+                    className="btn btn-secondary btn-sm"
+                    onClick={() => handlerProductSelectForm({
+                        id,
+                        name,
+                        price,
+                        description
+                    })}>
                     update
                 </button>
             </td>
@@ -18,7 +22,7 @@ export const ProductRow = ({ id,name,price,handlerRemoveProduct }) => {
                 <button 
                     type="button" 
                     className="btn btn-danger btn-sm"
-                    onClick={() => onRemoveProduct(id)}>
+                    onClick={() => handlerRemoveProduct(id)}>
                     remove
                 </button>
             </td>

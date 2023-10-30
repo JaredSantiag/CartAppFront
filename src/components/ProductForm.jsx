@@ -1,10 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
-export const ProductForm = ({handlerAddProduct, initialProductForm}) => {
+export const ProductForm = ({handlerAddProduct, initialProductForm, productSelected}) => {
 
     const [productForm, setProductForm] = useState(initialProductForm);
 
-    const {name, description, price} = productForm
+    const {id, name, description, price} = productForm;
+
+    useEffect(() => {
+        setProductForm({
+            ...productSelected
+        })
+    }, [productSelected])
 
     const onInputChange = ({target}) => {
         console.log(target.value);
@@ -19,7 +26,11 @@ export const ProductForm = ({handlerAddProduct, initialProductForm}) => {
         event.preventDefault();
         
         if(!name || !description || !price){
-            alert('Debe completar los campos del formulario');
+            Swal.fire({
+                icon: 'error',
+                title: 'Error de validación',
+                text: 'Debe llenar los campos del formulario'
+            })
             return;
         }
 
@@ -37,6 +48,8 @@ export const ProductForm = ({handlerAddProduct, initialProductForm}) => {
             value={name}
             onChange={onInputChange}/>
 
+        <input type="hidden" name="id" value={id}/>
+
         <input className="form-control my-3 w-75"
             placeholder="description"
             name="description"
@@ -53,7 +66,7 @@ export const ProductForm = ({handlerAddProduct, initialProductForm}) => {
         <button
             className="btn btn-primary"
             type="submit">
-            Agregar
+            {id>0 ? 'Edtiar' : 'Crear'}
         </button>
         </form>
     );

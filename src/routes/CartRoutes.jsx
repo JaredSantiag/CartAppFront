@@ -4,7 +4,7 @@ import { CartView } from "../components/CartView"
 import { ProductsList } from "../components/ProductsList"
 import { ProductForm } from "../components/ProductForm"
 
-export const CartRoutes = ({products,initialProductForm, handlerAddProduct, handlerRemoveProduct, handlerAddProductCart, cartItems, handlerDeleteCart}) => {
+export const CartRoutes = ({products, initialProductForm, productSelected, handlerAddProduct, handlerRemoveProduct, handlerProductSelectForm, handlerAddProductCart, cartItems, handlerDeleteCart}) => {
     return (
         <Routes>
             <Route
@@ -36,12 +36,12 @@ export const CartRoutes = ({products,initialProductForm, handlerAddProduct, hand
                 element={(
                     <div className="row">
                         <div className="col">
-                            <ProductForm initialProductForm={initialProductForm} handlerAddProduct={handlerAddProduct}/>
+                            <ProductForm initialProductForm={initialProductForm} handlerAddProduct={handlerAddProduct} productSelected={productSelected}/>
                         </div>
                         <div className="col">
                             {products.length===0
                             ? <div className="alert alert-warning">No hay producctos en el sistema</div>
-                            : <ProductsList products={products} handlerRemoveProduct={handlerRemoveProduct}/>}
+                            : <ProductsList products={products} handlerRemoveProduct={handlerRemoveProduct} handlerProductSelectForm={handlerProductSelectForm}/>}
                         </div>
                     </div>
                 )}/>
