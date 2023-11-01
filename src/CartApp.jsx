@@ -8,9 +8,12 @@ export const CartApp = () => {
     const { products, 
             initialProductForm, 
             productSelected, 
+            visibleForm,
             handlerAddProduct, 
             handlerRemoveProduct, 
-            handlerProductSelectForm
+            handlerProductSelectForm,
+            handlerOpenForm,
+            handlerCloseForm
         } = useProduct();
 
     const { cartItems, 
@@ -28,11 +31,14 @@ export const CartApp = () => {
                 cartItems={cartItems} 
                 initialProductForm ={initialProductForm}
                 productSelected={productSelected}
+                visibleForm={visibleForm}
                 handlerAddProduct={handlerAddProduct} 
                 handlerRemoveProduct={handlerRemoveProduct}
                 handlerProductSelectForm={handlerProductSelectForm}
                 handlerAddProductCart={handlerAddProductCart} 
-                handlerDeleteCart={handlerDeleteCart}/>
+                handlerDeleteCart={handlerDeleteCart}
+                handlerOpenForm={handlerOpenForm}
+                handlerCloseForm={handlerCloseForm}/>
         </div>
     </>)
 }

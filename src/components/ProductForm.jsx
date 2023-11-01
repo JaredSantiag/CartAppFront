@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
-export const ProductForm = ({handlerAddProduct, initialProductForm, productSelected}) => {
+export const ProductForm = ({ handlerAddProduct, initialProductForm, productSelected, handlerCloseForm}) => {
 
     const [productForm, setProductForm] = useState(initialProductForm);
 
-    const {id, name, description, price} = productForm;
+    const { id, name, description, price } = productForm;
 
     useEffect(() => {
         setProductForm({
@@ -13,19 +13,19 @@ export const ProductForm = ({handlerAddProduct, initialProductForm, productSelec
         })
     }, [productSelected])
 
-    const onInputChange = ({target}) => {
+    const onInputChange = ({ target }) => {
         console.log(target.value);
-        const {name, value} = target;
+        const { name, value } = target;
         setProductForm({
             ...productForm,
-            [name]:value
+            [name]: value
         })
     }
 
     const onSubmit = (event) => {
         event.preventDefault();
-        
-        if(!name || !description || !price){
+
+        if (!name || !description || !price) {
             Swal.fire({
                 icon: 'error',
                 title: 'Error de validación',
@@ -40,34 +40,43 @@ export const ProductForm = ({handlerAddProduct, initialProductForm, productSelec
         setProductForm(initialProductForm);
     }
 
+    const onCloseForm = () => {
+        handlerCloseForm();
+        setProductForm(initialProductForm);
+    }
+
     return (
         <form onSubmit={onSubmit}>
             <input className="form-control my-3 w-75"
-            placeholder="name"
-            name="name"
-            value={name}
-            onChange={onInputChange}/>
+                placeholder="name"
+                name="name"
+                value={name}
+                onChange={onInputChange} />
 
-        <input type="hidden" name="id" value={id}/>
+            <input type="hidden" name="id" value={id} />
 
-        <input className="form-control my-3 w-75"
-            placeholder="description"
-            name="description"
-            value={description}
-            onChange={onInputChange}/>
+            <input className="form-control my-3 w-75"
+                placeholder="description"
+                name="description"
+                value={description}
+                onChange={onInputChange} />
 
-        <input className="form-control my-3 w-75"
-            placeholder="price"
-            type="number"
-            name="price"
-            value={price}
-            onChange={onInputChange}/>
+            <input className="form-control my-3 w-75"
+                placeholder="price"
+                type="number"
+                name="price"
+                value={price}
+                onChange={onInputChange} />
 
-        <button
-            className="btn btn-primary"
-            type="submit">
-            {id>0 ? 'Edtiar' : 'Crear'}
-        </button>
+            <button
+                className="btn btn-primary"
+                type="submit">
+                {id > 0 ? 'Edtiar' : 'Crear'}
+            </button>
+
+            <button className="btn btn-primary mx-2" type="button" onClick={() => onCloseForm()}>
+                Cerrar
+            </button>
         </form>
     );
 }

@@ -18,18 +18,14 @@ export const useProduct = () => {
 
     const [productSelected, setProductSelected] = useState(initialProductForm);
 
+    const [visibleForm, setVisibleForm] = useState(false);
+
     const handlerAddProduct = (product) => {
-        let type;
-        if (product.id === 0) {
-            type = 'addPruduct';
-        }
-        else {
-            type = 'updatePruduct';
-        }
+
         dispatch({
-            type,
+            type: (product.id === 0)? 'addPruduct' : 'updatePruduct',
             payload: product
-        })
+        });
 
         Swal.fire(
             (product.id === 0) ?
@@ -39,7 +35,9 @@ export const useProduct = () => {
                 'El producto ha sido creado correctamente' :
                 'El producto ha sido actualizado correctamente',
             'success'
-        )
+        );
+
+        handlerCloseForm();
     }
 
     const handlerRemoveProduct = (id) => {
@@ -67,16 +65,29 @@ export const useProduct = () => {
     }
 
     const handlerProductSelectForm = (product) => {
+        setVisibleForm(true);
         setProductSelected({ ...product });
+    }
+
+    const handlerOpenForm = () => {
+        setVisibleForm(true);
+    }
+
+    const handlerCloseForm = () => {
+        setVisibleForm(false);
+        setProductSelected(initialProductForm);
     }
 
     return {
         products,
         initialProductForm,
         productSelected,
+        visibleForm,
         handlerAddProduct,
         handlerRemoveProduct,
-        handlerProductSelectForm
+        handlerProductSelectForm,
+        handlerOpenForm,
+        handlerCloseForm
     }
 
 }
