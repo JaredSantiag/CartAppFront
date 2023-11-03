@@ -3,7 +3,7 @@ import { useProduct } from "../hooks/useProduct"
 import { Navbar } from "../components/Navbar";
 import { CartRoutes } from "../routes/CartRoutes";
 
-export const CartAppPage = () => {
+export const CartAppPage = ({login, handlerLogout}) => {
     
     const { products, 
             initialProductForm, 
@@ -22,7 +22,7 @@ export const CartAppPage = () => {
         } = useItemsCart();
 
     return (<>
-        <Navbar/>
+        <Navbar login={login} handlerLogout={handlerLogout}/>
 
         <div className="container my-4">
             <h3>Cart App</h3>
