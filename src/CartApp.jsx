@@ -1,44 +1,40 @@
-import { useItemsCart } from "./hooks/useItemCart"
-import { useProduct } from "./hooks/useProduct"
-import { Navbar } from "./components/Navbar";
-import { CartRoutes } from "./routes/CartRoutes";
+import { useReducer } from "react"
+import { LoginPage } from "./auth/pages/LoginPage"
+import { CartAppPage } from "./pages/CartAppPages"
+import { loginReducer } from "./auth/pages/reducers/loginReducer"
+import Swal from "sweetalert2"
+
+const initialLogin = JSON.parse(sessionStorage.getItem('login')) || {
+    isAuth: false,
+    user: undefined
+}
 
 export const CartApp = () => {
-    
-    const { products, 
-            initialProductForm, 
-            productSelected, 
-            visibleForm,
-            handlerAddProduct, 
-            handlerRemoveProduct, 
-            handlerProductSelectForm,
-            handlerOpenForm,
-            handlerCloseForm
-        } = useProduct();
 
-    const { cartItems, 
-            handlerAddProductCart, 
-            handlerDeleteCart
-        } = useItemsCart();
+    const [login, dispach] = useReducer(loginReducer, initialLogin);
 
-    return (<>
-        <Navbar/>
+    const handlerLogin = ({ username, password }) => {
+        if (username == 'admin' && password == '1234') {
+            const user = {
+                username: 'admin'
+            }
+            dispach({
+                type: 'login',
+                payload: user
+            });
 
-        <div className="container my-4">
-            <h3>Cart App</h3>
-            <CartRoutes 
-                products={products}
-                cartItems={cartItems} 
-                initialProductForm ={initialProductForm}
-                productSelected={productSelected}
-                visibleForm={visibleForm}
-                handlerAddProduct={handlerAddProduct} 
-                handlerRemoveProduct={handlerRemoveProduct}
-                handlerProductSelectForm={handlerProductSelectForm}
-                handlerAddProductCart={handlerAddProductCart} 
-                handlerDeleteCart={handlerDeleteCart}
-                handlerOpenForm={handlerOpenForm}
-                handlerCloseForm={handlerCloseForm}/>
-        </div>
-    </>)
+            sessionStorage.setItem('login', JSON.stringify({
+                isAuth: true,
+                user
+            }));
+        }
+        else {
+            Swal.fire('Error de Login', 'Username o password invalidos', 'error');
+        }
+    }
+
+    return (
+        <>
+            {login.isAuth ? <CartAppPage /> : <LoginPage handlerLogin={handlerLogin}/>}
+        </>)
 }
