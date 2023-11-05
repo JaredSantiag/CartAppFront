@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
-export const ProductForm = ({ handlerAddProduct, initialProductForm, productSelected, handlerCloseForm}) => {
+export const ProductForm = ({ handlerAddProduct, initialProductForm, productSelected, handlerCloseForm }) => {
 
     const [productForm, setProductForm] = useState(initialProductForm);
 
@@ -74,9 +74,11 @@ export const ProductForm = ({ handlerAddProduct, initialProductForm, productSele
                 {id > 0 ? 'Edtiar' : 'Crear'}
             </button>
 
-            <button className="btn btn-primary mx-2" type="button" onClick={() => onCloseForm()}>
+            {!handlerCloseForm || <button
+                className="btn btn-primary mx-2" type="button" onClick={() => onCloseForm()}>
                 Cerrar
-            </button>
+            </button>}
+
         </form>
     );
 }

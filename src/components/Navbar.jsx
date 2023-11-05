@@ -10,11 +10,8 @@ export const Navbar = ({ login, handlerLogout }) => {
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 
-                <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li className="nav-item">
-                            <NavLink className={'nav-link'} to="/">Home</NavLink>
-                        </li>
                         <li className="nav-item">
                             <NavLink className={'nav-link'} to="/catalog">Catalog</NavLink>
                         </li>
@@ -22,7 +19,10 @@ export const Navbar = ({ login, handlerLogout }) => {
                             <NavLink className={'nav-link'} to="/cart">Cart</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink className={'nav-link'} to="/admin">Admin</NavLink>
+                            <NavLink className={'nav-link'} to="/products">Products</NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink className={'nav-link'} to="/products/new">New product</NavLink>
                         </li>
                     </ul>
 

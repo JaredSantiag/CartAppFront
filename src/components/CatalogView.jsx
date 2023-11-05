@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-import { getProducts } from "../services/productService";
 import { ProductCardView } from "./ProductCardView";
 
 export const CatalogView = ({ products, handler }) => {

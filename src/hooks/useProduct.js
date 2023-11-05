@@ -2,6 +2,7 @@ import { useReducer, useState } from "react"
 import { productReducer } from "../reducer/productReducer";
 import { getProducts } from "../services/productService";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const initialProducts = getProducts();
 
@@ -19,6 +20,8 @@ export const useProduct = () => {
     const [productSelected, setProductSelected] = useState(initialProductForm);
 
     const [visibleForm, setVisibleForm] = useState(false);
+
+    const navigate = useNavigate();
 
     const handlerAddProduct = (product) => {
 
@@ -38,6 +41,7 @@ export const useProduct = () => {
         );
 
         handlerCloseForm();
+        navigate('products');
     }
 
     const handlerRemoveProduct = (id) => {
