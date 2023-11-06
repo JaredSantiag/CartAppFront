@@ -1,6 +1,10 @@
+import { useContext } from "react";
 import { ProductCardView } from "./ProductCardView";
+import { ProductContext } from "../context/ProductContext";
 
-export const CatalogView = ({ products, handler }) => {
+export const CatalogView = () => {
+
+    const { products }  = useContext(ProductContext);
 
     return (
         <>
@@ -10,7 +14,6 @@ export const CatalogView = ({ products, handler }) => {
 
                     <div className="col-4 my-2" key={prod.id}>  
                         <ProductCardView 
-                            handler={handler}
                             id ={prod.id}
                             name={prod.name} 
                             description={prod.description} 

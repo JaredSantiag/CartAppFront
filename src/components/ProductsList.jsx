@@ -1,6 +1,10 @@
+import { useContext } from "react";
 import { ProductRow } from "./ProductRow";
+import { ProductContext } from "../context/ProductContext";
 
-export const ProductsList = ({products, handlerRemoveProduct, handlerProductSelectForm}) => {
+export const ProductsList = () => {
+
+    const {products} = useContext(ProductContext);
 
     return (
         <table className="table table-hover table-striped">
@@ -10,6 +14,7 @@ export const ProductsList = ({products, handlerRemoveProduct, handlerProductSele
                     <th>name</th>
                     <th>price</th>
                     <th>update</th>
+                    <th>update route</th>
                     <th>remove</th>
                 </tr>
             </thead>
@@ -21,9 +26,7 @@ export const ProductsList = ({products, handlerRemoveProduct, handlerProductSele
                         id={id} 
                         name={name} 
                         description={description}
-                        price={price} 
-                        handlerRemoveProduct={handlerRemoveProduct}
-                        handlerProductSelectForm={handlerProductSelectForm}/>
+                        price={price} />
                     ))
                 }
             </tbody>

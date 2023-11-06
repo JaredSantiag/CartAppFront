@@ -1,7 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import { ProductContext } from "../context/ProductContext";
 
-export const ProductForm = ({ handlerAddProduct, initialProductForm, productSelected, handlerCloseForm }) => {
+export const ProductForm = ({ productSelected, handlerCloseForm }) => {
+
+    const {initialProductForm, handlerAddProduct} = useContext(ProductContext);
 
     const [productForm, setProductForm] = useState(initialProductForm);
 

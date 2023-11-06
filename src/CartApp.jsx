@@ -1,25 +1,23 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import { useAuth } from "./auth/hooks/useAuth"
 import { LoginPage } from "./auth/pages/LoginPage"
 import { CartRoutes } from "./routes/CartRoutes";
+import { useContext } from "react";
+import { AuthContext } from "./auth/context/AuthContext";
 
 export const CartApp = () => {
 
-    const { login, handlerLogin, handlerLogout } = useAuth();
+    const { login } = useContext(AuthContext);
 
     return (
         <Routes>
             {
                 login.isAuth
                     ? (
-                        <Route path='/*' element={<CartRoutes
-                            login={login}
-                            handlerLogout={handlerLogout} />} />
+                        <Route path='/*' element={<CartRoutes />} />
                     )
                     : <>
                         <Route path='/login'
-                            element={<LoginPage
-                            handlerLogin={handlerLogin} />} />
+                            element={<LoginPage />} />
 
                         <Route path='/*' element={<Navigate to="/login" />} />
                     </>

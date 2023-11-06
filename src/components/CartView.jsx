@@ -1,18 +1,21 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { calculateTotal } from "../services/productService";
 import { useNavigate } from "react-router-dom";
+import { ProductContext } from "../context/ProductContext";
 
-export const CartView = ({handlerDelete, items}) => {
+export const CartView = () => {
+
+    const { cartItems, handlerDeleteCart }  = useContext(ProductContext);
 
     const [total, setTotal] = useState(0);
     const navigate = useNavigate();
 
     useEffect(() => {
-        setTotal(calculateTotal(items));
-    },[items])
+        setTotal(calculateTotal(cartItems));
+    },[cartItems])
 
     const onDeleteProduct = (id) => {
-        handlerDelete(id)
+        handlerDeleteCart(id)
     }
 
     const onCatalog = () => {
@@ -33,7 +36,7 @@ export const CartView = ({handlerDelete, items}) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {items.map(item => (
+                    {cartItems.map(item => (
                         <tr key={item.product.id}>
                             <td>{item.product.name}</td>
                             <td>{item.product.price}</td>

@@ -1,6 +1,11 @@
+import { useContext } from "react"
 import { ProductForm } from "./ProductForm"
+import { ProductContext } from "../context/ProductContext";
 
-export const ProductModalForm = ({ initialProductForm, productSelected, handlerAddProduct, handlerCloseForm }) => {
+export const ProductModalForm = () => {
+
+    const { productSelected, handlerCloseForm } = useContext(ProductContext);
+
     return (
         <div className="abrir-modal animacion fadeIn">
             <div className="modal" style={{ display: "block" }} tabIndex="-1">
@@ -12,7 +17,9 @@ export const ProductModalForm = ({ initialProductForm, productSelected, handlerA
                             </h5>
                         </div>
                         <div className="modal-body">
-                            <ProductForm initialProductForm={initialProductForm} handlerAddProduct={handlerAddProduct} productSelected={productSelected} handlerCloseForm={handlerCloseForm} />
+                            <ProductForm 
+                                productSelected={productSelected} 
+                                handlerCloseForm={handlerCloseForm} />
                         </div>
                     </div>
                 </div>

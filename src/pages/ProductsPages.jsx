@@ -1,22 +1,20 @@
+import { useContext } from "react";
 import { ProductModalForm } from "../components/ProductModalForm";
 import { ProductsList } from "../components/ProductsList";
+import { ProductContext } from "../context/ProductContext";
 
-export const CartAppPage = ({
-    products,
-    initialProductForm,
-    productSelected,
-    visibleForm,
-    handlerAddProduct, 
-    handlerRemoveProduct, 
-    handlerProductSelectForm, 
-    handlerOpenForm, 
-    handlerCloseForm 
-}) => {
+export const CartAppPage = () => {
+
+    const {
+        products,
+        visibleForm,
+        handlerOpenForm
+    } = useContext(ProductContext);
 
     return (
         <>
             {!visibleForm ||
-                <ProductModalForm initialProductForm={initialProductForm} productSelected={productSelected} handlerAddProduct={handlerAddProduct} handlerCloseForm={handlerCloseForm} />
+                <ProductModalForm />
             }
 
             <div className="row">
@@ -30,7 +28,7 @@ export const CartAppPage = ({
                     {
                         products.length === 0
                             ? <div className="alert alert-warning">No hay producctos en el sistema</div>
-                            : <ProductsList products={products} handlerRemoveProduct={handlerRemoveProduct} handlerProductSelectForm={handlerProductSelectForm} />
+                            : <ProductsList />
                     }
                 </div>
             </div>
