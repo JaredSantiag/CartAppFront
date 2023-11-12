@@ -4,7 +4,7 @@ import { getProducts } from "../services/productService";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
-const initialProducts = getProducts();
+const initialProducts = await getProducts();
 
 const initialProductForm = {
     id: 0,
