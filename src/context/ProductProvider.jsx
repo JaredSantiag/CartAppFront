@@ -19,7 +19,8 @@ export const ProductProvider = ({ children }) => {
         handlerRemoveProduct,
         handlerProductSelectForm,
         handlerOpenForm,
-        handlerCloseForm
+        handlerCloseForm,
+        getProducts
     } = useProduct();
 
     return (
@@ -36,7 +37,8 @@ export const ProductProvider = ({ children }) => {
                 handlerRemoveProduct,
                 handlerProductSelectForm,
                 handlerOpenForm,
-                handlerCloseForm
+                handlerCloseForm,
+                getProducts
             }
         }>
             {children}

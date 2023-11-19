@@ -1,10 +1,11 @@
 import { useReducer, useState } from "react"
 import { productReducer } from "../reducer/productReducer";
-import { getProducts } from "../services/productService";
+import { findAll, getProducts, remove, save, update } from "../services/productService";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
-const initialProducts = await getProducts();
+// const initialProducts = await getProducts();
+const initialProducts = [];
 
 const initialProductForm = {
     id: 0,
@@ -17,17 +18,34 @@ export const useProduct = () => {
 
     const [products, dispatch] = useReducer(productReducer, initialProducts);
 
+    const getProducts = async () => {
+        const result = await findAll();
+        console.log(result);
+        dispatch({
+            type: 'loadingProducts',
+            payload: result.data
+        });
+    }
+
     const [productSelected, setProductSelected] = useState(initialProductForm);
 
     const [visibleForm, setVisibleForm] = useState(false);
 
     const navigate = useNavigate();
 
-    const handlerAddProduct = (product) => {
+    const handlerAddProduct = async (product) => {
+
+        let response;
+
+        if (product.id == 0) {
+            response = await save(product);
+        } else {
+            response = await update(product);
+        }
 
         dispatch({
-            type: (product.id === 0)? 'addPruduct' : 'updatePruduct',
-            payload: product
+            type: (product.id === 0) ? 'addPruduct' : 'updatePruduct',
+            payload: response.data
         });
 
         Swal.fire(
@@ -55,6 +73,7 @@ export const useProduct = () => {
             confirmButtonText: 'Si, eliminar'
         }).then((result) => {
             if (result.isConfirmed) {
+                remove(id);
                 dispatch({
                     type: 'removeProduct',
                     payload: id
@@ -91,7 +110,8 @@ export const useProduct = () => {
         handlerRemoveProduct,
         handlerProductSelectForm,
         handlerOpenForm,
-        handlerCloseForm
+        handlerCloseForm,
+        getProducts
     }
 
 }

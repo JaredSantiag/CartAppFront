@@ -6,8 +6,7 @@ export const productReducer = (state =[], action) => {
             return [
                 ...state,
                 {
-                    ...action.payload,
-                    id: new Date().getTime()
+                    ...action.payload
                 }
             ];
 
@@ -23,6 +22,9 @@ export const productReducer = (state =[], action) => {
                 }
                 return p;
             })
+
+        case 'loadingProducts':
+            return  action.payload;
 
         default:
             return state;

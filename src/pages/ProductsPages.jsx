@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { ProductModalForm } from "../components/ProductModalForm";
 import { ProductsList } from "../components/ProductsList";
 import { ProductContext } from "../context/ProductContext";
@@ -8,8 +8,13 @@ export const CartAppPage = () => {
     const {
         products,
         visibleForm,
-        handlerOpenForm
+        handlerOpenForm,
+        getProducts
     } = useContext(ProductContext);
+
+    useEffect(() =>{
+        getProducts();
+    }, []);
 
     return (
         <>
