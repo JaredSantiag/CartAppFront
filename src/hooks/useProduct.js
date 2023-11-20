@@ -14,6 +14,12 @@ const initialProductForm = {
     price: 0
 }
 
+const initialErrors = {
+    name: '',
+    description: '',
+    price: null
+}
+
 export const useProduct = () => {
 
     const [products, dispatch] = useReducer(productReducer, initialProducts);
@@ -31,35 +37,48 @@ export const useProduct = () => {
 
     const [visibleForm, setVisibleForm] = useState(false);
 
+    const [errors, setErrors] = useState(initialErrors)
+
     const navigate = useNavigate();
 
     const handlerAddProduct = async (product) => {
-
         let response;
 
-        if (product.id == 0) {
-            response = await save(product);
-        } else {
-            response = await update(product);
+        try {
+
+            if (product.id == 0) {
+                response = await save(product);
+            } else {
+                response = await update(product);
+            }
+
+            dispatch({
+                type: (product.id === 0) ? 'addPruduct' : 'updatePruduct',
+                payload: response.data
+            });
+
+            Swal.fire(
+                (product.id === 0) ?
+                    'Producto creado' :
+                    'Producto actualizado',
+                (product.id === 0) ?
+                    'El producto ha sido creado correctamente' :
+                    'El producto ha sido actualizado correctamente',
+                'success'
+            );
+
+            handlerCloseForm();
+            navigate('products');
+
+        } catch (error) {
+            if (error.response && error.response.status == 400) {
+                setErrors(error.response.data);
+            } else if (error.response && error.response.status == 500 && error.response.data?.message?.includes('constraint')) {
+                setErrors({name: 'Ya existe un producto con el mismo nombre'})
+            } else {
+                throw error;
+            }
         }
-
-        dispatch({
-            type: (product.id === 0) ? 'addPruduct' : 'updatePruduct',
-            payload: response.data
-        });
-
-        Swal.fire(
-            (product.id === 0) ?
-                'Producto creado' :
-                'Producto actualizado',
-            (product.id === 0) ?
-                'El producto ha sido creado correctamente' :
-                'El producto ha sido actualizado correctamente',
-            'success'
-        );
-
-        handlerCloseForm();
-        navigate('products');
     }
 
     const handlerRemoveProduct = (id) => {
@@ -99,6 +118,7 @@ export const useProduct = () => {
     const handlerCloseForm = () => {
         setVisibleForm(false);
         setProductSelected(initialProductForm);
+        setErrors({})
     }
 
     return {
@@ -106,6 +126,7 @@ export const useProduct = () => {
         initialProductForm,
         productSelected,
         visibleForm,
+        errors,
         handlerAddProduct,
         handlerRemoveProduct,
         handlerProductSelectForm,

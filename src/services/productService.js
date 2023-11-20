@@ -35,7 +35,7 @@ export const save = async ({ name, description, price }) => {
             price
         });
     } catch (error) {
-        console.error(error)
+        throw error;
     }
     return undefined;
 }
@@ -48,7 +48,7 @@ export const update = async ({ id, name, description, price }) => {
             price
         });
     } catch (error) {
-        console.error(error)
+        throw error;
     }
     return undefined;
 }

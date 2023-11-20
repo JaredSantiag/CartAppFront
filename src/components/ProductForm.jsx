@@ -1,10 +1,9 @@
 import { useContext, useEffect, useState } from "react";
-import Swal from "sweetalert2";
 import { ProductContext } from "../context/ProductContext";
 
 export const ProductForm = ({ productSelected, handlerCloseForm }) => {
 
-    const {initialProductForm, handlerAddProduct} = useContext(ProductContext);
+    const {initialProductForm, handlerAddProduct, errors} = useContext(ProductContext);
 
     const [productForm, setProductForm] = useState(initialProductForm);
 
@@ -28,6 +27,7 @@ export const ProductForm = ({ productSelected, handlerCloseForm }) => {
     const onSubmit = (event) => {
         event.preventDefault();
 
+        /*
         if (!name || !description || !price) {
             Swal.fire({
                 icon: 'error',
@@ -36,11 +36,11 @@ export const ProductForm = ({ productSelected, handlerCloseForm }) => {
             })
             return;
         }
-
-        //console.log(productForm);
+        console.log(productForm);
+        */
 
         handlerAddProduct(productForm);
-        setProductForm(initialProductForm);
+        //setProductForm(initialProductForm);
     }
 
     const onCloseForm = () => {
@@ -55,6 +55,7 @@ export const ProductForm = ({ productSelected, handlerCloseForm }) => {
                 name="name"
                 value={name}
                 onChange={onInputChange} />
+            <p className="text-danger">{errors?.name}</p>    
 
             <input type="hidden" name="id" value={id} />
 
@@ -63,6 +64,7 @@ export const ProductForm = ({ productSelected, handlerCloseForm }) => {
                 name="description"
                 value={description}
                 onChange={onInputChange} />
+            <p className="text-danger">{errors?.description}</p>    
 
             <input className="form-control my-3 w-75"
                 placeholder="price"
@@ -70,6 +72,7 @@ export const ProductForm = ({ productSelected, handlerCloseForm }) => {
                 name="price"
                 value={price}
                 onChange={onInputChange} />
+            <p className="text-danger">{errors?.price}</p>    
 
             <button
                 className="btn btn-primary"
