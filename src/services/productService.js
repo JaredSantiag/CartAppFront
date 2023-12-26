@@ -2,6 +2,13 @@ import axios from "axios";
 
 const BASE_URL = 'http://localhost:8080/products';
 
+const config = {
+    headers : {
+        "Authorization": sessionStorage.getItem('token'),
+        "Content-Type": "application/json"
+    }
+}
+
 export const getProducts = async () => {
 
     const response = await fetch(BASE_URL);
@@ -33,7 +40,7 @@ export const save = async ({ name, description, price }) => {
             name,
             description,
             price
-        });
+        }, config);
     } catch (error) {
         throw error;
     }
@@ -46,7 +53,7 @@ export const update = async ({ id, name, description, price }) => {
             name,
             description,
             price
-        });
+        }, config);
     } catch (error) {
         throw error;
     }
@@ -55,7 +62,7 @@ export const update = async ({ id, name, description, price }) => {
 
 export const remove = async (id) => {
     try {
-        await axios.delete(`${BASE_URL}/${id}`);
+        await axios.delete(`${BASE_URL}/${id}`, config);
     } catch (error) {
         console.error(error);
     }
