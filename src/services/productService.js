@@ -2,10 +2,12 @@ import axios from "axios";
 
 const BASE_URL = 'http://localhost:8080/products';
 
-const config = {
-    headers : {
-        "Authorization": sessionStorage.getItem('token'),
-        "Content-Type": "application/json"
+const config = () => {
+    return{
+        headers : {
+            "Authorization": sessionStorage.getItem('token'),
+            "Content-Type": "application/json"
+        }
     }
 }
 
@@ -40,7 +42,7 @@ export const save = async ({ name, description, price }) => {
             name,
             description,
             price
-        }, config);
+        }, config());
     } catch (error) {
         throw error;
     }
@@ -53,17 +55,16 @@ export const update = async ({ id, name, description, price }) => {
             name,
             description,
             price
-        }, config);
+        }, config());
     } catch (error) {
         throw error;
     }
-    return undefined;
 }
 
 export const remove = async (id) => {
     try {
-        await axios.delete(`${BASE_URL}/${id}`, config);
+        await axios.delete(`${BASE_URL}/${id}`, config());
     } catch (error) {
-        console.error(error);
+        throw error;
     }
 }

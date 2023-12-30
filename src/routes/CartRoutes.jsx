@@ -5,8 +5,12 @@ import { CartAppPage } from "../pages/ProductsPages"
 import { Navbar } from "../components/Navbar"
 import { RegisterPage } from "../pages/RegisterPage"
 import { ProductProvider } from "../context/ProductProvider"
+import { useContext } from "react"
+import { AuthContext } from "../auth/context/AuthContext"
 
 export const CartRoutes = () => {
+
+    const { login } = useContext(AuthContext);
 
     return (
         <>
@@ -37,13 +41,20 @@ export const CartRoutes = () => {
                             path='products'
                             element={<CartAppPage />} />
 
-                        <Route
-                            path="products/new"
-                            element={<RegisterPage />} />
 
-                        <Route
-                            path="products/edit/:id"
-                            element={<RegisterPage />} />
+                        {
+                            !login.isAdmin ||
+                            <>
+                                <Route
+                                    path="products/new"
+                                    element={<RegisterPage />} />
+
+                                <Route
+                                    path="products/edit/:id"
+                                    element={<RegisterPage />} />
+
+                            </>
+                        }
                     </Routes>
                 </div>
             </ProductProvider>

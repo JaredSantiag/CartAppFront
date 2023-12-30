@@ -24,9 +24,7 @@ export const useAuth = () => {
             const claims = JSON.parse(window.atob(token.split(".")[1]));
             console.log(claims);
 
-            const user = {
-                username: claims.sub
-            }
+            const user = {username: claims.sub}
             dispatch({
                 type: 'login',
                 payload: {
@@ -35,11 +33,12 @@ export const useAuth = () => {
                 }
             });
 
-            sessionStorage.setItem('token', JSON.stringify({
+            sessionStorage.setItem('login', JSON.stringify({
                 isAuth: true,
                 isAdmin: claims.isAdmin,
                 user
             }));
+
             sessionStorage.setItem('token', `Bearer ${token}`);
 
             navigate('products');

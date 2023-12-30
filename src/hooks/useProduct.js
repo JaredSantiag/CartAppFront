@@ -1,8 +1,9 @@
-import { useReducer, useState } from "react"
+import { useContext, useReducer, useState } from "react"
 import { productReducer } from "../reducer/productReducer";
 import { findAll, getProducts, remove, save, update } from "../services/productService";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../auth/context/AuthContext";
 
 // const initialProducts = await getProducts();
 const initialProducts = [];
@@ -24,6 +25,16 @@ export const useProduct = () => {
 
     const [products, dispatch] = useReducer(productReducer, initialProducts);
 
+    const [productSelected, setProductSelected] = useState(initialProductForm);
+
+    const [visibleForm, setVisibleForm] = useState(false);
+
+    const [errors, setErrors] = useState(initialErrors)
+
+    const navigate = useNavigate();
+
+    const { login, handlerLogout } = useContext(AuthContext);
+
     const getProducts = async () => {
         const result = await findAll();
         console.log(result);
@@ -33,15 +44,10 @@ export const useProduct = () => {
         });
     }
 
-    const [productSelected, setProductSelected] = useState(initialProductForm);
-
-    const [visibleForm, setVisibleForm] = useState(false);
-
-    const [errors, setErrors] = useState(initialErrors)
-
-    const navigate = useNavigate();
-
     const handlerAddProduct = async (product) => {
+
+        if (!login.isAdmin) return;
+
         let response;
 
         try {
@@ -74,14 +80,20 @@ export const useProduct = () => {
             if (error.response && error.response.status == 400) {
                 setErrors(error.response.data);
             } else if (error.response && error.response.status == 500 && error.response.data?.message?.includes('constraint')) {
-                setErrors({name: 'Ya existe un producto con el mismo nombre'})
-            } else {
+                setErrors({ name: 'Ya existe un producto con el mismo nombre' })
+            } else if (error.response?.status == 401) {
+                handlerLogout();
+            }
+            else {
                 throw error;
             }
         }
     }
 
     const handlerRemoveProduct = (id) => {
+
+        if (!login.isAdmin) return;
+
         Swal.fire({
             title: '¿Esta seguro que desea elimina?',
             text: "Cuidado, el producto sera eliminado",
@@ -90,18 +102,24 @@ export const useProduct = () => {
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Si, eliminar'
-        }).then((result) => {
+        }).then( async(result) => {
             if (result.isConfirmed) {
-                remove(id);
-                dispatch({
-                    type: 'removeProduct',
-                    payload: id
-                })
-                Swal.fire(
-                    'Producto eliminado',
-                    'Producto eliminado correctamente',
-                    'success'
-                )
+                try {
+                    await remove(id);
+                    dispatch({
+                        type: 'removeProduct',
+                        payload: id
+                    })
+                    Swal.fire(
+                        'Producto eliminado',
+                        'Producto eliminado correctamente',
+                        'success'
+                    )
+                } catch (error) {
+                    if (error.response?.status == 401) {
+                        handlerLogout();
+                    }
+                }
             }
         })
     }

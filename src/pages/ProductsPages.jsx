@@ -2,6 +2,7 @@ import { useContext, useEffect } from "react";
 import { ProductModalForm } from "../components/ProductModalForm";
 import { ProductsList } from "../components/ProductsList";
 import { ProductContext } from "../context/ProductContext";
+import { AuthContext } from "../auth/context/AuthContext";
 
 export const CartAppPage = () => {
 
@@ -11,6 +12,8 @@ export const CartAppPage = () => {
         handlerOpenForm,
         getProducts
     } = useContext(ProductContext);
+
+    const {login} = useContext(AuthContext)
 
     useEffect(() =>{
         getProducts();
@@ -25,7 +28,7 @@ export const CartAppPage = () => {
             <div className="row">
                 <div className="col">
                     {
-                        visibleForm || <button className="btn btn-primary my-2" onClick={handlerOpenForm}>
+                        (visibleForm || !login.isAdmin) || <button className="btn btn-primary my-2" onClick={handlerOpenForm}>
                             Nuevo producto
                         </button>
                     }
