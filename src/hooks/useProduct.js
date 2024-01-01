@@ -36,12 +36,18 @@ export const useProduct = () => {
     const { login, handlerLogout } = useContext(AuthContext);
 
     const getProducts = async () => {
-        const result = await findAll();
-        console.log(result);
-        dispatch({
-            type: 'loadingProducts',
-            payload: result.data
-        });
+        try {
+            const result = await findAll();
+            console.log(result);
+            dispatch({
+                type: 'loadingProducts',
+                payload: result.data
+            });
+        } catch (error) {
+            if (error.response?.status == 401) {
+                handlerLogout();
+            }
+        }
     }
 
     const handlerAddProduct = async (product) => {
@@ -102,7 +108,7 @@ export const useProduct = () => {
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Si, eliminar'
-        }).then( async(result) => {
+        }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
                     await remove(id);
