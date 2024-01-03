@@ -4,7 +4,6 @@ import { CartView } from "../components/CartView"
 import { CartAppPage } from "../pages/ProductsPages"
 import { Navbar } from "../components/Navbar"
 import { RegisterPage } from "../pages/RegisterPage"
-import { ProductProvider } from "../context/ProductProvider"
 import { useContext } from "react"
 import { AuthContext } from "../auth/context/AuthContext"
 
@@ -14,50 +13,48 @@ export const CartRoutes = () => {
 
     return (
         <>
-            <ProductProvider>
-                <Navbar />
+            <Navbar />
 
-                <div className="container my-4">
-                    <h3>Cart App</h3>
+            <div className="container my-4">
+                <h3>Cart App</h3>
 
-                    <Routes>
-                        <Route
-                            path='catalog'
-                            element={<CatalogView />} />
+                <Routes>
+                    <Route
+                        path='catalog'
+                        element={<CatalogView />} />
 
-                        <Route
-                            path='cart'
-                            element={(
-                                <div className="my-4 w-50">
-                                    <CartView />
-                                </div>
-                            )} />
+                    <Route
+                        path='cart'
+                        element={(
+                            <div className="my-4 w-50">
+                                <CartView />
+                            </div>
+                        )} />
 
-                        <Route
-                            path='/'
-                            element={<Navigate to={'/catalog'} />} />
+                    <Route
+                        path='/'
+                        element={<Navigate to={'/catalog'} />} />
 
-                        <Route
-                            path='products'
-                            element={<CartAppPage />} />
+                    <Route
+                        path='products'
+                        element={<CartAppPage />} />
 
 
-                        {
-                            !login.isAdmin ||
-                            <>
-                                <Route
-                                    path="products/new"
-                                    element={<RegisterPage />} />
+                    {
+                        !login.isAdmin ||
+                        <>
+                            <Route
+                                path="products/new"
+                                element={<RegisterPage />} />
 
-                                <Route
-                                    path="products/edit/:id"
-                                    element={<RegisterPage />} />
+                            <Route
+                                path="products/edit/:id"
+                                element={<RegisterPage />} />
 
-                            </>
-                        }
-                    </Routes>
-                </div>
-            </ProductProvider>
+                        </>
+                    }
+                </Routes>
+            </div>
         </>
     )
 }

@@ -4,6 +4,8 @@ import { findAll, getProducts, remove, save, update } from "../services/productS
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../auth/context/AuthContext";
+import { useDispatch, useSelector } from "react-redux";
+import { addPruduct, removeProduct, updatePruduct, loadingProducts } from "../store/slices/products/productsSlice";
 
 // const initialProducts = await getProducts();
 const initialProducts = [];
@@ -23,7 +25,9 @@ const initialErrors = {
 
 export const useProduct = () => {
 
-    const [products, dispatch] = useReducer(productReducer, initialProducts);
+    // const [products, dispatch] = useReducer(productReducer, initialProducts);
+    const {products} = useSelector(state => state.products)
+    const dispatch = useDispatch();
 
     const [productSelected, setProductSelected] = useState(initialProductForm);
 
@@ -39,10 +43,7 @@ export const useProduct = () => {
         try {
             const result = await findAll();
             console.log(result);
-            dispatch({
-                type: 'loadingProducts',
-                payload: result.data
-            });
+            dispatch(loadingProducts(result.data));
         } catch (error) {
             if (error.response?.status == 401) {
                 handlerLogout();
@@ -60,14 +61,11 @@ export const useProduct = () => {
 
             if (product.id == 0) {
                 response = await save(product);
+                dispatch(addPruduct(response.data));
             } else {
                 response = await update(product);
+                dispatch(updatePruduct(response.data));
             }
-
-            dispatch({
-                type: (product.id === 0) ? 'addPruduct' : 'updatePruduct',
-                payload: response.data
-            });
 
             Swal.fire(
                 (product.id === 0) ?
@@ -112,10 +110,7 @@ export const useProduct = () => {
             if (result.isConfirmed) {
                 try {
                     await remove(id);
-                    dispatch({
-                        type: 'removeProduct',
-                        payload: id
-                    })
+                    dispatch(removeProduct(id))
                     Swal.fire(
                         'Producto eliminado',
                         'Producto eliminado correctamente',
