@@ -2,11 +2,10 @@ import { useContext, useEffect, useState } from "react";
 import { calculateTotal } from "../services/productService";
 import { useNavigate } from "react-router-dom";
 import { ProductContext } from "../context/ProductContext";
-import { useProduct } from "../hooks/useProduct";
 
 export const CartView = () => {
 
-    const { cartItems, handlerDeleteCart }  = useProduct();
+    const { cartItems, handlerDeleteCart }  = useContext(ProductContext);
 
     const [total, setTotal] = useState(0);
     const navigate = useNavigate();

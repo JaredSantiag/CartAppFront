@@ -1,6 +1,7 @@
 import { ProductForm } from "../components/ProductForm"
 import { useParams } from "react-router-dom";
 import { useProduct } from "../hooks/useProduct";
+import { useEffect, useState } from "react";
 
 export const RegisterPage = () => {
 

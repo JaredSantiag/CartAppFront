@@ -36,7 +36,7 @@ export const productsSlice = createSlice({
             state.products = state.products.filter(product => product.id !== action.payload);
         },
         updatePruduct: (state, action) => {
-            state.products.map(p => {
+            state.products = state.products.map(p => {
                 if(p.id === action.payload.id ){
                     return {
                         ...action.payload
@@ -47,8 +47,8 @@ export const productsSlice = createSlice({
             state.productSelected = initialProductForm;
             state.visibleForm = false;
         },
-        loadingProducts: (state, action) => {
-            state.products = action.payload
+        loadingProducts: (state, {payload}) => {
+            state.products = payload
         },
         onProductSelectForm: (state, action) => {
             state.productSelected = action.payload;

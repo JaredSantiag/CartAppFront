@@ -6,7 +6,6 @@ import { initialProductForm, addPruduct, removeProduct, updatePruduct, loadingPr
 import { useAuth } from "../auth/hooks/useAuth";
 
 // const initialProducts = await getProducts();
-
 export const useProduct = () => {
 
     const {products, productSelected, visibleForm, errors} = useSelector(state => state.products)

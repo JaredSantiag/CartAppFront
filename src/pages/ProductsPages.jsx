@@ -4,7 +4,7 @@ import { ProductsList } from "../components/ProductsList";
 import { useProduct } from "../hooks/useProduct";
 import { useAuth } from "../auth/hooks/useAuth";
 
-export const CartAppPage = () => {
+export const ProductsPages = () => {
 
     const {
         products,
