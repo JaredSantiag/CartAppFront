@@ -1,10 +1,9 @@
-import { useContext } from "react";
 import { ProductCardView } from "./ProductCardView";
-import { ProductContext } from "../context/ProductContext";
+import { useProduct } from "../hooks/useProduct";
 
 export const CatalogView = () => {
 
-    const { products }  = useContext(ProductContext);
+    const { products }  = useProduct();
 
     return (
         <>

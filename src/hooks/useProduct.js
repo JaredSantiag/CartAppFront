@@ -1,43 +1,19 @@
-import { useContext, useReducer, useState } from "react"
-import { productReducer } from "../reducer/productReducer";
-import { findAll, getProducts, remove, save, update } from "../services/productService";
+import { findAll, remove, save, update } from "../services/productService";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../auth/context/AuthContext";
+import { useNavigate } from "react-router-dom";;
 import { useDispatch, useSelector } from "react-redux";
-import { addPruduct, removeProduct, updatePruduct, loadingProducts } from "../store/slices/products/productsSlice";
+import { initialProductForm, addPruduct, removeProduct, updatePruduct, loadingProducts, onProductSelectForm, onOpenForm, onCloseForm, loadingError } from "../store/slices/products/productsSlice";
+import { useAuth } from "../auth/hooks/useAuth";
 
 // const initialProducts = await getProducts();
-const initialProducts = [];
-
-const initialProductForm = {
-    id: 0,
-    name: '',
-    description: '',
-    price: 0
-}
-
-const initialErrors = {
-    name: '',
-    description: '',
-    price: null
-}
-
 export const useProduct = () => {
 
-    // const [products, dispatch] = useReducer(productReducer, initialProducts);
-    const {products} = useSelector(state => state.products)
+    const {products, productSelected, visibleForm, errors} = useSelector(state => state.products)
     const dispatch = useDispatch();
-
-    const [productSelected, setProductSelected] = useState(initialProductForm);
-
-    const [visibleForm, setVisibleForm] = useState(false);
-
-    const [errors, setErrors] = useState(initialErrors)
 
     const navigate = useNavigate();
 
-    const { login, handlerLogout } = useContext(AuthContext);
+    const { login, handlerLogout } = useAuth();
 
     const getProducts = async () => {
         try {
@@ -82,9 +58,9 @@ export const useProduct = () => {
 
         } catch (error) {
             if (error.response && error.response.status == 400) {
-                setErrors(error.response.data);
+                dispatch(loadingError(error.response.data));
             } else if (error.response && error.response.status == 500 && error.response.data?.message?.includes('constraint')) {
-                setErrors({ name: 'Ya existe un producto con el mismo nombre' })
+                dispatch(loadingError({ name: 'Ya existe un producto con el mismo nombre' }));
             } else if (error.response?.status == 401) {
                 handlerLogout();
             }
@@ -126,18 +102,16 @@ export const useProduct = () => {
     }
 
     const handlerProductSelectForm = (product) => {
-        setVisibleForm(true);
-        setProductSelected({ ...product });
+        dispatch(onProductSelectForm({ ... product}));
     }
 
     const handlerOpenForm = () => {
-        setVisibleForm(true);
+        dispatch(onOpenForm());
     }
 
     const handlerCloseForm = () => {
-        setVisibleForm(false);
-        setProductSelected(initialProductForm);
-        setErrors({})
+        dispatch(onCloseForm());
+        dispatch(loadingError({}));
     }
 
     return {

@@ -1,19 +1,19 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { ProductModalForm } from "../components/ProductModalForm";
 import { ProductsList } from "../components/ProductsList";
-import { ProductContext } from "../context/ProductContext";
-import { AuthContext } from "../auth/context/AuthContext";
+import { useProduct } from "../hooks/useProduct";
+import { useAuth } from "../auth/hooks/useAuth";
 
-export const CartAppPage = () => {
+export const ProductsPages = () => {
 
     const {
         products,
         visibleForm,
         handlerOpenForm,
         getProducts
-    } = useContext(ProductContext);
+    } = useProduct();
 
-    const {login} = useContext(AuthContext)
+    const {login} = useAuth()
 
     useEffect(() =>{
         getProducts();

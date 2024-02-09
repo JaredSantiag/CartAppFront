@@ -1,10 +1,10 @@
-import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
 import { ProductContext } from "../context/ProductContext";
 
 export const ProductCardView = ({ id, name, description, price }) => {
 
-    const { handlerAddProductCart }  = useContext(ProductContext);
+    const { handlerAddProductCart }  = useContext(ProductContext);;
 
     const navigate = useNavigate();
 

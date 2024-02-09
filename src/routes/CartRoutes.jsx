@@ -1,18 +1,19 @@
 import { Navigate, Route, Routes } from "react-router-dom"
 import { CatalogView } from "../components/CatalogView"
 import { CartView } from "../components/CartView"
-import { CartAppPage } from "../pages/ProductsPages"
+import { ProductsPages } from "../pages/ProductsPages"
 import { Navbar } from "../components/Navbar"
 import { RegisterPage } from "../pages/RegisterPage"
-import { useContext } from "react"
-import { AuthContext } from "../auth/context/AuthContext"
+import { ProductProvider } from "../context/ProductProvider"
+import { useSelector } from "react-redux"
 
 export const CartRoutes = () => {
 
-    const { login } = useContext(AuthContext);
+    const { isAdmin } = useSelector(state => state.auth);
 
     return (
         <>
+        <ProductProvider>
             <Navbar />
 
             <div className="container my-4">
@@ -37,11 +38,11 @@ export const CartRoutes = () => {
 
                     <Route
                         path='products'
-                        element={<CartAppPage />} />
+                        element={<ProductsPages />} />
 
 
                     {
-                        !login.isAdmin ||
+                        !isAdmin ||
                         <>
                             <Route
                                 path="products/new"
@@ -55,6 +56,7 @@ export const CartRoutes = () => {
                     }
                 </Routes>
             </div>
+            </ProductProvider>
         </>
     )
 }

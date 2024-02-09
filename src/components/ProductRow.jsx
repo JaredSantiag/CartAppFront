@@ -1,12 +1,11 @@
-import { useContext } from "react"
 import { NavLink } from "react-router-dom"
-import { ProductContext } from "../context/ProductContext";
-import { AuthContext } from "../auth/context/AuthContext";
+import { useProduct } from "../hooks/useProduct";
+import { useAuth } from "../auth/hooks/useAuth";
 
 export const ProductRow = ({ id, name, price, description }) => {
 
-    const { handlerProductSelectForm, handlerRemoveProduct } = useContext(ProductContext);
-    const {login} = useContext(AuthContext)
+    const { handlerProductSelectForm, handlerRemoveProduct } = useProduct();
+    const {login} = useAuth()
 
     return (
         <tr>

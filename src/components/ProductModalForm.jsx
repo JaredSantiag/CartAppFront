@@ -1,10 +1,9 @@
-import { useContext } from "react"
 import { ProductForm } from "./ProductForm"
-import { ProductContext } from "../context/ProductContext";
+import { useProduct } from "../hooks/useProduct";
 
 export const ProductModalForm = () => {
 
-    const { productSelected, handlerCloseForm } = useContext(ProductContext);
+    const { productSelected, handlerCloseForm } = useProduct();
 
     return (
         <div className="abrir-modal animacion fadeIn">
