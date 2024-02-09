@@ -4,12 +4,12 @@ import { CartView } from "../components/CartView"
 import { CartAppPage } from "../pages/ProductsPages"
 import { Navbar } from "../components/Navbar"
 import { RegisterPage } from "../pages/RegisterPage"
-import { useContext } from "react"
-import { AuthContext } from "../auth/context/AuthContext"
+import { useAuth } from "../auth/hooks/useAuth"
+import { useSelector } from "react-redux"
 
 export const CartRoutes = () => {
 
-    const { login } = useContext(AuthContext);
+    const { isAdmin } = useSelector(state => state.auth);
 
     return (
         <>
@@ -41,7 +41,7 @@ export const CartRoutes = () => {
 
 
                     {
-                        !login.isAdmin ||
+                        !isAdmin ||
                         <>
                             <Route
                                 path="products/new"

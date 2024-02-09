@@ -1,17 +1,16 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { LoginPage } from "./auth/pages/LoginPage"
 import { CartRoutes } from "./routes/CartRoutes";
-import { useContext } from "react";
-import { AuthContext } from "./auth/context/AuthContext";
+import { useSelector } from "react-redux";
 
 export const AppRoutes = () => {
     
-    const { login } = useContext(AuthContext);
+    const { isAuth } = useSelector(state => state.auth);
 
     return (
         <Routes>
             {
-                login.isAuth
+                isAuth
                     ? (
                         <Route path='/*' element={<CartRoutes />} />
                     )

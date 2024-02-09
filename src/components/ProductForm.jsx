@@ -1,9 +1,9 @@
-import { useContext, useEffect, useState } from "react";
-import { ProductContext } from "../context/ProductContext";
+import { useEffect, useState } from "react";
+import { useProduct } from "../hooks/useProduct";
 
 export const ProductForm = ({ productSelected, handlerCloseForm }) => {
 
-    const {initialProductForm, handlerAddProduct, errors} = useContext(ProductContext);
+    const {initialProductForm, handlerAddProduct, errors} = useProduct();
 
     const [productForm, setProductForm] = useState(initialProductForm);
 
