@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const productsApi = axios.create({
-    baseURL: 'http://localhost:8080/products'
+    baseURL: `${import.meta.env.VITE_API_BASE_URL}/products`
 });
 
 productsApi.interceptors.request.use(config => {

@@ -31,7 +31,7 @@ export const useAuth = () => {
 
             sessionStorage.setItem('token', `Bearer ${token}`);
 
-            navigate('products');
+            navigate('/catalog');
         }
         catch(error) {
             if(error.response?.status == 401){
@@ -45,7 +45,7 @@ export const useAuth = () => {
     }
 
     const handlerLogout = () => {
-        dispatch(onLogout);
+        dispatch(onLogout());
         sessionStorage.removeItem('token');
         sessionStorage.removeItem('login');
         sessionStorage.clear();
