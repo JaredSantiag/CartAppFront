@@ -8,7 +8,7 @@ import { useAuth } from "../auth/hooks/useAuth";
 // const initialProducts = await getProducts();
 export const useProduct = () => {
 
-    const {products, productSelected, visibleForm, errors} = useSelector(state => state.products)
+    const {products, productSelected, visibleForm, errors, isLoading} = useSelector(state => state.products)
     const dispatch = useDispatch();
 
     const navigate = useNavigate();
@@ -120,6 +120,7 @@ export const useProduct = () => {
         productSelected,
         visibleForm,
         errors,
+        isLoading,
         handlerAddProduct,
         handlerRemoveProduct,
         handlerProductSelectForm,

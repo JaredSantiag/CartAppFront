@@ -9,15 +9,24 @@ export const ProductsPages = () => {
     const {
         products,
         visibleForm,
+        isLoading,
         handlerOpenForm,
         getProducts
     } = useProduct();
 
-    const {login} = useAuth()
+    const { login } = useAuth()
 
-    useEffect(() =>{
+    useEffect(() => {
         getProducts();
     }, []);
+
+    if (isLoading) {
+        return (
+            <div className="spinner-border text-primary m-4" role="status">
+                <span className="visually-hidden">Loading...</span>
+            </div>
+        )
+    }
 
     return (
         <>

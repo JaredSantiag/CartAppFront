@@ -19,7 +19,8 @@ export const productsSlice = createSlice({
         products: [],
         productSelected: initialProductForm,
         visibleForm: false,
-        errors: initialErrors
+        errors: initialErrors,
+        isLoading: true
     },
     reducers: {
         addPruduct: (state, action) => {
@@ -48,7 +49,8 @@ export const productsSlice = createSlice({
             state.visibleForm = false;
         },
         loadingProducts: (state, {payload}) => {
-            state.products = payload
+            state.products = payload;
+            state.isLoading = false;
         },
         onProductSelectForm: (state, action) => {
             state.productSelected = action.payload;
@@ -75,5 +77,5 @@ export const {
     onProductSelectForm,
     onOpenForm,
     onCloseForm,
-    loadingError
+    loadingError,
 } = productsSlice.actions;
