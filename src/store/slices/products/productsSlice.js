@@ -17,6 +17,7 @@ export const productsSlice = createSlice({
     name: 'products',
     initialState: {
         products: [],
+        paginator: {},
         productSelected: initialProductForm,
         visibleForm: false,
         errors: initialErrors,
@@ -49,7 +50,8 @@ export const productsSlice = createSlice({
             state.visibleForm = false;
         },
         loadingProducts: (state, {payload}) => {
-            state.products = payload;
+            state.products = payload.content;
+            state.paginator = payload;
             state.isLoading = false;
         },
         onProductSelectForm: (state, action) => {

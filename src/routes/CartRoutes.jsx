@@ -13,49 +13,52 @@ export const CartRoutes = () => {
 
     return (
         <>
-        <ProductProvider>
-            <Navbar />
+            <ProductProvider>
+                <Navbar />
 
-            <div className="container my-4">
-                <h3>Cart App</h3>
+                <div className="container my-4">
+                    <h3>Cart App</h3>
 
-                <Routes>
-                    <Route
-                        path='catalog'
-                        element={<CatalogView />} />
+                    <Routes>
+                        <Route
+                            path='catalog'
+                            element={<CatalogView />} />
 
-                    <Route
-                        path='cart'
-                        element={(
-                            <div className="my-4 w-50">
-                                <CartView />
-                            </div>
-                        )} />
+                        <Route
+                            path='cart'
+                            element={(
+                                <div className="my-4 w-50">
+                                    <CartView />
+                                </div>
+                            )} />
 
-                    <Route
-                        path='/'
-                        element={<Navigate to={'/catalog'} />} />
+                        <Route
+                            path='/'
+                            element={<Navigate to={'/catalog'} />} />
 
-                    <Route
-                        path='products'
-                        element={<ProductsPages />} />
+                        <Route
+                            path='products'
+                            element={<ProductsPages />} />
 
+                        <Route
+                            path='products/page/:page'
+                            element={<ProductsPages />} />
 
-                    {
-                        !isAdmin ||
-                        <>
-                            <Route
-                                path="products/new"
-                                element={<RegisterPage />} />
+                        {
+                            !isAdmin ||
+                            <>
+                                <Route
+                                    path="products/new"
+                                    element={<RegisterPage />} />
 
-                            <Route
-                                path="products/edit/:id"
-                                element={<RegisterPage />} />
+                                <Route
+                                    path="products/edit/:id"
+                                    element={<RegisterPage />} />
 
-                        </>
-                    }
-                </Routes>
-            </div>
+                            </>
+                        }
+                    </Routes>
+                </div>
             </ProductProvider>
         </>
     )

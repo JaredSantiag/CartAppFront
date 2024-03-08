@@ -27,6 +27,16 @@ export const findAll = async () => {
     }
 }
 
+export const findAllPages = async (page = 0) => {
+    try {
+        const response = await productsApi.get(`${BASE_URL}/pages/${page}`);
+        return response;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}
+
 export const save = async ({ name, description, price }) => {
     try {
         return await productsApi.post(BASE_URL, {

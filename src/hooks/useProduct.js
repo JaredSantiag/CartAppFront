@@ -1,4 +1,4 @@
-import { findAll, remove, save, update } from "../services/productService";
+import { findAllPages, remove, save, update } from "../services/productService";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";;
 import { useDispatch, useSelector } from "react-redux";
@@ -8,17 +8,16 @@ import { useAuth } from "../auth/hooks/useAuth";
 // const initialProducts = await getProducts();
 export const useProduct = () => {
 
-    const {products, productSelected, visibleForm, errors, isLoading} = useSelector(state => state.products)
+    const {products, productSelected, visibleForm, errors, isLoading, paginator} = useSelector(state => state.products)
     const dispatch = useDispatch();
 
     const navigate = useNavigate();
 
     const { login, handlerLogout } = useAuth();
 
-    const getProducts = async () => {
+    const getProducts = async (page = 0) => {
         try {
-            const result = await findAll();
-            console.log(result);
+            const result = await findAllPages(page);
             dispatch(loadingProducts(result.data));
         } catch (error) {
             if (error.response?.status == 401) {
@@ -121,6 +120,7 @@ export const useProduct = () => {
         visibleForm,
         errors,
         isLoading,
+        paginator,
         handlerAddProduct,
         handlerRemoveProduct,
         handlerProductSelectForm,

@@ -3,8 +3,11 @@ import { ProductModalForm } from "../components/ProductModalForm";
 import { ProductsList } from "../components/ProductsList";
 import { useProduct } from "../hooks/useProduct";
 import { useAuth } from "../auth/hooks/useAuth";
+import { useParams } from "react-router-dom";
 
 export const ProductsPages = () => {
+
+    const { page } = useParams() //Para obtener el parametro de la ruta
 
     const {
         products,
@@ -17,13 +20,15 @@ export const ProductsPages = () => {
     const { login } = useAuth()
 
     useEffect(() => {
-        getProducts();
-    }, []);
+        getProducts(page);
+    }, [, page]);
 
     if (isLoading) {
         return (
-            <div className="spinner-border text-primary m-4" role="status">
-                <span className="visually-hidden">Loading...</span>
+            <div className="container my-4 text-center">
+                <div className="spinner-border text-primary m-4" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </div>
             </div>
         )
     }
@@ -45,7 +50,10 @@ export const ProductsPages = () => {
                     {
                         products.length === 0
                             ? <div className="alert alert-warning">No hay producctos en el sistema</div>
-                            : <ProductsList />
+                            : <>
+                                <ProductsList />
+                                
+                            </>
                     }
                 </div>
             </div>
