@@ -29,7 +29,7 @@ export const findAll = async () => {
 
 export const findAllPages = async (page = 0) => {
     try {
-        const response = await productsApi.get(`${BASE_URL}/pages/${page}`);
+        const response = await productsApi.get(`${BASE_URL}/page/${page}`);
         return response;
     } catch (error) {
         console.error(error);

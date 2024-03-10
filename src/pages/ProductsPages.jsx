@@ -4,6 +4,7 @@ import { ProductsList } from "../components/ProductsList";
 import { useProduct } from "../hooks/useProduct";
 import { useAuth } from "../auth/hooks/useAuth";
 import { useParams } from "react-router-dom";
+import { Paginator } from "../components/Paginator";
 
 export const ProductsPages = () => {
 
@@ -13,6 +14,7 @@ export const ProductsPages = () => {
         products,
         visibleForm,
         isLoading,
+        paginator,
         handlerOpenForm,
         getProducts
     } = useProduct();
@@ -52,7 +54,7 @@ export const ProductsPages = () => {
                             ? <div className="alert alert-warning">No hay producctos en el sistema</div>
                             : <>
                                 <ProductsList />
-                                
+                                <Paginator url="/products/page" paginator={paginator}/>
                             </>
                     }
                 </div>
