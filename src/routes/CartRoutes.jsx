@@ -40,14 +40,6 @@ export const CartRoutes = () => {
                             path='/'
                             element={<Navigate to={'/catalog'} />} />
 
-                        <Route
-                            path='products'
-                            element={<ProductsPages />} />
-
-                        <Route
-                            path='products/page/:page'
-                            element={<ProductsPages />} />
-
                         {
                             !isAdmin ||
                             <>
@@ -59,6 +51,13 @@ export const CartRoutes = () => {
                                     path="products/edit/:id"
                                     element={<RegisterPage />} />
 
+                                <Route
+                                    path='products'
+                                    element={<ProductsPages />} />
+
+                                <Route
+                                    path='products/page/:page'
+                                    element={<ProductsPages />} />
                             </>
                         }
                     </Routes>

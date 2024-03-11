@@ -26,13 +26,16 @@ export const Navbar = () => {
                         <li className="nav-item">
                             <NavLink className={'nav-link'} to="/cart">Cart</NavLink>
                         </li>
-                        <li className="nav-item">
-                            <NavLink className={'nav-link'} to="/products">Products</NavLink>
-                        </li>
                         {!login.isAdmin ||
-                            <li className="nav-item">
-                                <NavLink className={'nav-link'} to="/products/new">New product</NavLink>
-                            </li>
+                            <>
+                                <li className="nav-item">
+                                    <NavLink className={'nav-link'} to="/products">Products</NavLink>
+                                </li>
+
+                                <li className="nav-item">
+                                    <NavLink className={'nav-link'} to="/products/new">New product</NavLink>
+                                </li>
+                            </>
                         }
                     </ul>
 
@@ -42,6 +45,8 @@ export const Navbar = () => {
                                 {login.user?.username}
                             </button>
                             <ul className="dropdown-menu">
+                                <li><a className="dropdown-item" href="#">Profile</a></li>
+                                <li><hr className="dropdown-divider" /></li>
                                 <li><a className="dropdown-item" href="#" onClick={handlerLogout}>Logout</a></li>
                             </ul>
                         </div>
