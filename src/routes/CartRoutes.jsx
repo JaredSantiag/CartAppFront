@@ -25,6 +25,10 @@ export const CartRoutes = () => {
                             element={<CatalogView />} />
 
                         <Route
+                            path='catalog/page/:page'
+                            element={<CatalogView />} />
+
+                        <Route
                             path='cart'
                             element={(
                                 <div className="my-4 w-50">
