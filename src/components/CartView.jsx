@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { calculateTotal } from "../services/productService";
 import { useNavigate } from "react-router-dom";
 import { ProductContext } from "../context/ProductContext";
+import { Wallet2, X } from 'react-bootstrap-icons';
 
 export const CartView = () => {
 
@@ -44,8 +45,11 @@ export const CartView = () => {
                             <td>{item.quantity * item.product.price}</td>
                             <td>
                                 <button
-                                className="btn btn-danger btn-sm" 
-                                onClick={() => onDeleteProduct(item.product.id)}>eliminar</button>
+                                    className="btn btn-danger btn-sm"
+                                    onClick={() => onDeleteProduct(item.product.id)}>
+                                        <X className="me-2"/>
+                                        eliminar
+                                    </button>
                             </td>
                         </tr>
                     ))}
@@ -58,11 +62,27 @@ export const CartView = () => {
                 </tfoot>
             </table>
 
-            <button 
-            className="btn btn-success"
-            onClick={onCatalog}>
-                Seguir comprando
-            </button>
+
+            <div className="row justify-content-between">
+                <div className="col">
+                    <button
+                        className="btn btn-success"
+                        onClick={onCatalog}>
+                        Seguir comprando
+                    </button>
+
+                </div>
+
+                <div className="col text-end me-4">
+                    <button className="btn btn-success">
+                        <Wallet2 className="me-2"/>
+                        Comprar
+                    </button>
+                </div>
+            </div>
+
+
+
         </>
     )
 }
