@@ -6,6 +6,7 @@ import { Navbar } from "../components/Navbar"
 import { RegisterPage } from "../pages/RegisterPage"
 import { ProductProvider } from "../context/ProductProvider"
 import { useSelector } from "react-redux"
+import { OrdersPage } from "../pages/OrdersPage"
 
 export const CartRoutes = () => {
 
@@ -39,6 +40,12 @@ export const CartRoutes = () => {
                         <Route
                             path='/'
                             element={<Navigate to={'/catalog'} />} />
+
+                        <Route
+                            path='orders'
+                            element={(
+                                <OrdersPage />
+                            )} />
 
                         {
                             !isAdmin ||

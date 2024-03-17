@@ -46,7 +46,9 @@ export const Navbar = () => {
                             </button>
                             <ul className="dropdown-menu me-auto" >
                                 <li><a className="dropdown-item" href="#">Profile</a></li>
-                                <li><a className="dropdown-item" href="#">My orders</a></li>
+                                <li className="dropdown-item">
+                                    <NavLink className={'nav-link'} to="/orders">My orders</NavLink>
+                                </li>
                                 <li><hr className="dropdown-divider" /></li>
                                 <li><a className="dropdown-item" href="#" onClick={handlerLogout}>Logout</a></li>
                             </ul>

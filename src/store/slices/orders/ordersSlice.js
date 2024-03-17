@@ -10,7 +10,7 @@ export const ordersSlice = createSlice({
 
     reducers: {
         loadingOrders: (state, {payload}) => {
-            state.products = payload.content;
+            state.orders = payload;
             state.isLoading = false;
         }
     }
