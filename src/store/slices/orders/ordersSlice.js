@@ -12,10 +12,19 @@ export const ordersSlice = createSlice({
         loadingOrders: (state, {payload}) => {
             state.orders = payload;
             state.isLoading = false;
+        },
+        addOrder: (state, {payload}) => {
+            state.orders = [
+                ... state.orders,
+                {
+                    ...payload       
+                }
+            ];
         }
     }
 });
 
 export const {
-    loadingOrders
+    loadingOrders,
+    addOrder
 } = ordersSlice.actions

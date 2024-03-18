@@ -3,10 +3,12 @@ import { calculateTotal } from "../services/productService";
 import { useNavigate } from "react-router-dom";
 import { ProductContext } from "../context/ProductContext";
 import { Wallet2, X } from 'react-bootstrap-icons';
+import { useOrder } from "../hooks/useOrder";
 
 export const CartView = () => {
 
     const { cartItems, handlerDeleteCart }  = useContext(ProductContext);
+    const {handlerAddOrder} = useOrder();
 
     const [total, setTotal] = useState(0);
     const navigate = useNavigate();
@@ -21,6 +23,10 @@ export const CartView = () => {
 
     const onCatalog = () => {
         navigate('/catalog');
+    }
+
+    const onSubmit = () => {
+        handlerAddOrder(cartItems);
     }
 
     return (
@@ -74,14 +80,14 @@ export const CartView = () => {
                 </div>
 
                 <div className="col text-end me-4">
-                    <button className="btn btn-success">
-                        <Wallet2 className="me-2"/>
+                    <button 
+                    className="btn btn-success"
+                        onClick={onSubmit} >
+                            <Wallet2 className="me-2"/>
                         Comprar
                     </button>
                 </div>
             </div>
-
-
 
         </>
     )

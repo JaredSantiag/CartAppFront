@@ -11,3 +11,15 @@ export const findAll = async () => {
         throw error;
     }
 }
+
+export const save = async ( products ) => {
+    try {
+        return await ordersApi.post(BASE_URL, {
+            products
+        });
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+    return undefined;
+}
