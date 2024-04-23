@@ -29,15 +29,19 @@ export const useOrder = () => {
     const handlerAddOrder = async (cartItems) => {
         try {
             let response;
-            let products = [];
+            let items = [];
 
             cartItems.map(item => {
-                products.push({
-                    'id': item.product.id
+                items.push({
+                    product: { 
+                        'id': item.product.id
+                    },
+                    price: item.product.price,
+                    quantity: item.quantity
                 })
             });
 
-            response = await save(products);
+            response = await save(items);
             dispatch(addOrder(response.data));
 
             Swal.fire(

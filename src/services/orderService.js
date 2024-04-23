@@ -12,14 +12,13 @@ export const findAll = async () => {
     }
 }
 
-export const save = async ( products ) => {
+export const save = async ( items ) => {
     try {
         return await ordersApi.post(BASE_URL, {
-            products
+            items
         });
     } catch (error) {
         console.error(error);
         throw error;
     }
-    return undefined;
 }
