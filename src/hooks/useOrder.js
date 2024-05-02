@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { loadingOrders, addOrder } from "../store/slices/orders/ordersSlice";
+import { loadingOrders, addOrder, onOpenModal, onCloseModal} from "../store/slices/orders/ordersSlice";
 import { findAll, save } from "../services/orderService";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
@@ -68,10 +68,20 @@ export const useOrder = () => {
         }
     }
 
+    const handlerOpenModal = (items) => {
+        dispatch(onOpenModal({ ... items}));
+    }
+
+    const handlerCloseModal = () => {
+        dispatch(onCloseModal());
+    }
+
     return {
         orders,
         isLoading,
         getOrders,
-        handlerAddOrder
+        handlerAddOrder,
+        handlerOpenModal,
+        handlerCloseModal
     }
 }

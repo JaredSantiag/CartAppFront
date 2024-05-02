@@ -5,7 +5,8 @@ export const ordersSlice = createSlice({
 
     initialState: {
         orders: [],
-        isLoading: true
+        isLoading: true,
+        visibleModal: false
     },
 
     reducers: {
@@ -20,11 +21,20 @@ export const ordersSlice = createSlice({
                     ...payload       
                 }
             ];
+        },
+        onOpenModal: (state, action) => {
+            state.items = action.payload;
+            state.visibleModal = true;
+        },
+        onCloseModal: (state) => {
+            state.visibleModal = false;
         }
     }
 });
 
 export const {
     loadingOrders,
-    addOrder
+    addOrder,
+    onOpenModal,
+    onCloseModal
 } = ordersSlice.actions
