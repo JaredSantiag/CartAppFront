@@ -1,9 +1,10 @@
 import { useOrder } from "../hooks/useOrder"
 import { Basket3Fill } from 'react-bootstrap-icons';
+import { ItemsModal } from "../components/ItemsModal";
 
 export const OrdersView = () => {
 
-    const { orders, handlerOpenModal } = useOrder();
+    const { orders, visibleModal, handlerOpenModal } = useOrder();
 
     const getTotal = (items) => {
         let total = 0.0;
@@ -13,7 +14,11 @@ export const OrdersView = () => {
         return total;
     }
 
-    return (
+    return (<>
+        {!visibleModal ||
+            <ItemsModal />
+        }
+
         <table className="table table-hover">
             <thead>
                 <tr>
@@ -52,5 +57,5 @@ export const OrdersView = () => {
                 }
             </tbody>
         </table>
-    );
+    </>);
 }

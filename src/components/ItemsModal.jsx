@@ -2,7 +2,7 @@ import { useOrder } from "../hooks/useOrder";
 
 export const ItemsModal = () => {
 
-    const { handlerOpenModal } = useOrder();
+    const { items, handlerCloseModal } = useOrder();
 
     return (
         <div className="abrir-modal animacion fadeIn">
@@ -15,7 +15,20 @@ export const ItemsModal = () => {
                             </h5>
                         </div>
                         <div className="modal-body">
-                           Hola periplis
+                            <table className="table table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>name</th>
+                                        <th>price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        console.log(items)
+                                    }
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

@@ -7,7 +7,7 @@ import { useAuth } from "../auth/hooks/useAuth";
 
 export const useOrder = () => {
 
-    const { orders, isLoading } = useSelector(state => state.orders);
+    const { orders, isLoading, items, visibleModal } = useSelector(state => state.orders);
 
     const { handlerLogout } = useAuth();
 
@@ -79,6 +79,8 @@ export const useOrder = () => {
     return {
         orders,
         isLoading,
+        visibleModal,
+        items,
         getOrders,
         handlerAddOrder,
         handlerOpenModal,
