@@ -43,7 +43,7 @@ export const OrdersView = () => {
                                 <button
                                     type="button"
                                     className="btn btn-secondary btn-sm"
-                                    onClick={() => handlerOpenModal(items)}
+                                    onClick={() => handlerOpenModal(items) }
                                 >
                                     <Basket3Fill className="me-2" />
                                     Listar

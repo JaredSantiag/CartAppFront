@@ -69,7 +69,7 @@ export const useOrder = () => {
     }
 
     const handlerOpenModal = (items) => {
-        dispatch(onOpenModal({ ... items}));
+        dispatch(onOpenModal( items));
     }
 
     const handlerCloseModal = () => {

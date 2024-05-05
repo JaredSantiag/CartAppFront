@@ -2,7 +2,7 @@ import { useOrder } from "../hooks/useOrder";
 
 export const ItemsModal = () => {
 
-    const { items, handlerCloseModal } = useOrder();
+    const { items, visibleModal, handlerCloseModal } = useOrder();
 
     return (
         <div className="abrir-modal animacion fadeIn">
@@ -11,28 +11,39 @@ export const ItemsModal = () => {
                     <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title">
-                                Items
+                                Articulos
                             </h5>
                         </div>
                         <div className="modal-body">
-                            <table className="table table-hover table-striped">
+                            <table className="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
-                                        <th>name</th>
-                                        <th>price</th>
+                                        <th>Nombre</th>
+                                        <th>Precio</th>
+                                        <th>Cantidad</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {
-                                        console.log(items)
-                                    }
+                                    {items.map(i => (
+                                        <tr>
+                                            <td key={i.id}>{i.product.name}</td>
+                                            <td>{i.price}</td>
+                                            <td>{i.quantity}</td>
+                                        </tr>
+
+                                    ))}
                                 </tbody>
                             </table>
+                        </div>
+                        <div class="modal-footer">
+                            {!visibleModal || <button
+                                className="btn btn-primary mx-2" type="button" onClick={() => handlerCloseModal()}>
+                                Cerrar
+                            </button>}
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
