@@ -25,8 +25,8 @@ export const ItemsModal = () => {
                                 </thead>
                                 <tbody>
                                     {items.map(i => (
-                                        <tr>
-                                            <td key={i.id}>{i.product.name}</td>
+                                        <tr key={i.id}>
+                                            <td>{i.product.name}</td>
                                             <td>{i.price}</td>
                                             <td>{i.quantity}</td>
                                         </tr>
@@ -35,7 +35,7 @@ export const ItemsModal = () => {
                                 </tbody>
                             </table>
                         </div>
-                        <div class="modal-footer">
+                        <div className="modal-footer">
                             {!visibleModal || <button
                                 className="btn btn-primary mx-2" type="button" onClick={() => handlerCloseModal()}>
                                 Cerrar
