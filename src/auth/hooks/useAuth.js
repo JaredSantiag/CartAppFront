@@ -1,8 +1,8 @@
 import Swal from "sweetalert2";
-import { loginUser } from "../services/authService";
+import { loginUser, registerUser } from "../services/authService";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { onLogin, onLogout, onInitLogin } from "../../store/slices/auth/authSlice";
+import { onLogin, onLogout, onRegister, onInitLogin } from "../../store/slices/auth/authSlice";
 
 export const useAuth = () => {
 
@@ -46,6 +46,24 @@ export const useAuth = () => {
         }
     }
 
+    const haandlerRegister = async ({ username, email, password }) => {
+        try{
+            const user = {username, email, password}
+            dispatch(onRegister(user));
+            const response = await registerUser({username, email, password});
+            Swal.fire({
+                title: "Registrado con exito!",
+                text: "Ahora puedes iniciar sesión y realizar tus compras",
+                icon: "success"
+            });
+            navigate('/');
+        }
+        catch(error) {
+            dispatch(onRegister());
+            Swal.fire('Error de registro', 'Vallida tu información, puede que algun campo ya haya sido registrado', 'error');
+        }
+    }
+
     const handlerLogout = () => {
         dispatch(onLogout());
         sessionStorage.removeItem('token');
@@ -61,6 +79,7 @@ export const useAuth = () => {
             isAuth
         },
         handlerLogin,
+        haandlerRegister,
         handlerLogout
     }
 }

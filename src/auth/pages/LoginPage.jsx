@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Swal from "sweetalert2";
 import { useAuth } from "../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const initialLoginForm = {
     username: '',
@@ -10,11 +11,12 @@ const initialLoginForm = {
 export const LoginPage = () => {
 
     const {handlerLogin} = useAuth();
+    const navigate = useNavigate();
 
     const [LoginForm, setLoginForm] = useState(initialLoginForm);
     const { username, password } = LoginForm;
 
-    const onInputChange = ({target}) => {
+    const onInputChange = ({ target }) => {
         const { name, value } = target;
         setLoginForm({
             ...LoginForm,
@@ -29,10 +31,14 @@ export const LoginPage = () => {
         }
 
         // aqui ira el login
-        handlerLogin({username, password});
-        
+        handlerLogin({ username, password });
+
 
         setLoginForm(initialLoginForm);
+    }
+
+    const onRegisterUser = () => {
+        navigate('/register');
     }
 
     return (
@@ -58,10 +64,15 @@ export const LoginPage = () => {
                                 name="password"
                                 value={password}
                                 onChange={onInputChange} />
-                        </div>
-                        <div className="modal-footer">
 
-                            <button type="submit" className="btn btn-primary">Login</button>
+                        </div>
+                        <div className="modal-footer d-flex justify-content-between">
+                            <button type="submit" className="btn btn-primary justify-content-end">Login</button>
+
+                            <div>
+                                Don't have an account?
+                                <button type="button" className="btn btn-link" onClick={onRegisterUser}>Register here</button>
+                            </div>
                         </div>
                     </form>
                 </div>

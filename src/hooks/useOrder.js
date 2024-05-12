@@ -51,7 +51,7 @@ export const useOrder = () => {
             );
 
             sessionStorage.removeItem('cart');
-            navigate('orders');
+            navigate('/orders');
 
         } catch (error) {
             if (error.response && error.response.status == 400) {

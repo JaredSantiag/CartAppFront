@@ -7,13 +7,18 @@ export const loginReducer = (state = {}, action) => {
                 user: action.payload.user,
             };
 
+        case 'register':
+            return {
+                isAuth: false,
+                isAdmin: false,   
+                user: action.payload.user 
+            };
         case 'logout':
             return {
                 isAuth: false,
                 isAdmin: false,
                 user: undefined
             };
-
         default:
             return state;
     }

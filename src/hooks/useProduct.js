@@ -53,7 +53,7 @@ export const useProduct = () => {
             );
 
             handlerCloseForm();
-            navigate('products');
+            navigate('/products');
 
         } catch (error) {
             if (error.response && error.response.status == 400) {

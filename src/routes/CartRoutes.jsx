@@ -51,7 +51,7 @@ export const CartRoutes = () => {
                             !isAdmin ||
                             <>
                                 <Route
-                                    path="products/new"
+                                    path="new"
                                     element={<RegisterPage />} />
 
                                 <Route

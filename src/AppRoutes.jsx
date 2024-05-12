@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { LoginPage } from "./auth/pages/LoginPage"
 import { CartRoutes } from "./routes/CartRoutes";
 import { useSelector } from "react-redux";
+import { RegisterPage } from "./auth/pages/RegisterPage";
 
 export const AppRoutes = () => {
 
@@ -27,6 +28,8 @@ export const AppRoutes = () => {
                     : <>
                         <Route path='/login'
                             element={<LoginPage />} />
+
+                        <Route path='/register' element={<RegisterPage />} />
 
                         <Route path='/*' element={<Navigate to="/login" />} />
                     </>
