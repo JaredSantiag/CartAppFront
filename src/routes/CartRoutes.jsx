@@ -7,6 +7,7 @@ import { RegisterPage } from "../pages/RegisterPage"
 import { ProductProvider } from "../context/ProductProvider"
 import { useSelector } from "react-redux"
 import { OrdersPage } from "../pages/OrdersPage"
+import { Profile } from "../pages/Profile";
 
 export const CartRoutes = () => {
 
@@ -45,6 +46,12 @@ export const CartRoutes = () => {
                             path='orders'
                             element={(
                                 <OrdersPage />
+                            )} />
+
+                        <Route
+                            path='profile'
+                            element={(
+                                <Profile />
                             )} />
 
                         {
