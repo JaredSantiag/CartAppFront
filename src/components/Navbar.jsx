@@ -45,7 +45,7 @@ export const Navbar = () => {
                                 {login.user?.username}
                             </button>
                             <ul className="dropdown-menu me-auto" >
-                                <li><a className="dropdown-item" href="#">Profile</a></li>
+                                <li><a className="dropdown-item" href="/profile">Profile</a></li>
                                 <li className="dropdown-item">
                                     <NavLink className={'nav-link'} to="/orders">My orders</NavLink>
                                 </li>
