@@ -4,7 +4,7 @@ import { loadingUser } from "../store/slices/user/userSllice";
 
 export const useUser = () => {
 
-    const { user, isLoading } = useSelector(state => state.user);
+    const { user, isLoading, visiblePaymentMethods } = useSelector(state => state.user);
 
     const dispatch = useDispatch();
 
@@ -19,9 +19,20 @@ export const useUser = () => {
         }
     }
 
+    const handlershowPayments = () => {
+        dispatch(showPayments());
+    }
+
+    const handlerhiddePayments = () => {
+        dispatch(hiddePayments());
+    }
+
     return{ 
         user,
         isLoading,
-        getUser
+        visiblePaymentMethods,
+        getUser,
+        handlershowPayments,
+        handlerhiddePayments
     }
 }

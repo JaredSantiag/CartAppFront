@@ -5,17 +5,26 @@ export const userSlice = createSlice({
 
     initialState: {
         user: {},
-        isLoading: true
+        isLoading: true,
+        visiblePaymentMethods: false
     },
 
     reducers: {
         loadingUser: (state, {payload}) => {
             state.user = payload;
             state.isLoading = false;
+        },
+        showPayments: (state) => {
+            state.visiblePaymentMethods = true;
+        },
+        hiddePayments: (state) => {
+            state.visiblePaymentMethods = false;
         }
     }
 });
 
 export const {
-    loadingUser
+    loadingUser,
+    showPayments,
+    hiddePayments
 } = userSlice.actions

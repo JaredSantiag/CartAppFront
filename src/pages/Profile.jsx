@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { useUser } from "../hooks/useUser"
-import { EyeFill, PencilSquare, Trash3Fill, X, XLg, XSquare, XSquareFill } from "react-bootstrap-icons";
+import { EyeFill, PencilSquare, Trash3Fill } from "react-bootstrap-icons";
 
 export const Profile = () => {
 
-    const { user, isLoading, getUser } = useUser();
+    const { user, isLoading, visiblePaymentMethods, getUser, handlershowPayments, handlerhiddePayments } = useUser();
 
     useEffect(() => {
         getUser();
@@ -14,6 +14,11 @@ export const Profile = () => {
         const last4Digits = cardNumber.slice(-4);
         const maskedCardNumber = '*'.repeat(cardNumber.length - 4) + last4Digits;
         return maskedCardNumber;
+    }
+
+    const handlerPayments = () => {
+        (!visiblePaymentMethods)? handlershowPayments : handlerhiddePayments;
+
     }
 
     if (isLoading) {
@@ -62,7 +67,7 @@ export const Profile = () => {
                                     user.paymentMethods.map(({ id, cardNumber, monthExpiration, yearExpiration }) => (
                                         <tr key={id}>
                                             <td>
-                                                {hiddeCardNumber(cardNumber)}
+                                                {(!visiblePaymentMethods)? hiddeCardNumber(cardNumber) : cardNumber}
                                             </td>
                                             <td>
                                                 **/{yearExpiration}
@@ -71,6 +76,7 @@ export const Profile = () => {
                                                 <button
                                                     type="button"
                                                     className="btn btn-secondary btn-sm"
+                                                    onClick={() => handlerPayments}
                                                 >
                                                     <EyeFill className="me-2" />
                                                     Show
