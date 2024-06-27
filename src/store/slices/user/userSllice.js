@@ -17,7 +17,7 @@ export const userSlice = createSlice({
         showPayments: (state) => {
             state.visiblePaymentMethods = true;
         },
-        hiddePayments: (state) => {
+        hidePayments: (state) => {
             state.visiblePaymentMethods = false;
         }
     }
@@ -26,5 +26,5 @@ export const userSlice = createSlice({
 export const {
     loadingUser,
     showPayments,
-    hiddePayments
+    hidePayments
 } = userSlice.actions

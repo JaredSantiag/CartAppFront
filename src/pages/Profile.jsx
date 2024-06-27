@@ -4,21 +4,23 @@ import { EyeFill, PencilSquare, Trash3Fill } from "react-bootstrap-icons";
 
 export const Profile = () => {
 
-    const { user, isLoading, visiblePaymentMethods, getUser, handlershowPayments, handlerhiddePayments } = useUser();
+    const { user, isLoading, visiblePaymentMethods, getUser, handlerPayments } = useUser();
 
     useEffect(() => {
         getUser();
     }, []);
 
-    const hiddeCardNumber = (cardNumber) => {
+    const hideCardNumber = (cardNumber) => {
         const last4Digits = cardNumber.slice(-4);
         const maskedCardNumber = '*'.repeat(cardNumber.length - 4) + last4Digits;
         return maskedCardNumber;
     }
 
-    const handlerPayments = () => {
-        (!visiblePaymentMethods)? handlershowPayments : handlerhiddePayments;
-
+    const hideExpiration = (expiration) => {
+        const [month, year] = expiration.split("/");
+        const maskedMonth = "*".repeat(month.length);
+        const maskedDate = `${maskedMonth}/${year}`;
+        return maskedDate;
     }
 
     if (isLoading) {
@@ -67,19 +69,19 @@ export const Profile = () => {
                                     user.paymentMethods.map(({ id, cardNumber, monthExpiration, yearExpiration }) => (
                                         <tr key={id}>
                                             <td>
-                                                {(!visiblePaymentMethods)? hiddeCardNumber(cardNumber) : cardNumber}
+                                                {(!visiblePaymentMethods)? hideCardNumber(cardNumber) : cardNumber}
                                             </td>
                                             <td>
-                                                **/{yearExpiration}
+                                                {(!visiblePaymentMethods)? hideExpiration(monthExpiration+"/"+yearExpiration) : monthExpiration+"/"+yearExpiration}
                                             </td>
                                             <td>
                                                 <button
                                                     type="button"
                                                     className="btn btn-secondary btn-sm"
-                                                    onClick={() => handlerPayments}
+                                                    onClick={() => handlerPayments()}
                                                 >
                                                     <EyeFill className="me-2" />
-                                                    Show
+                                                    {(!visiblePaymentMethods)? 'show' : 'hide'}
                                                 </button>
                                             </td>
                                             <td>

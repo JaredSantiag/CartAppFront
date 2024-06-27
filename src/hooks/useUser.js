@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { find } from "../services/userService";
-import { loadingUser } from "../store/slices/user/userSllice";
+import { loadingUser, showPayments, hidePayments } from "../store/slices/user/userSllice";
 
 export const useUser = () => {
 
@@ -19,20 +19,19 @@ export const useUser = () => {
         }
     }
 
-    const handlershowPayments = () => {
-        dispatch(showPayments());
+    const handlerPayments = () => {
+        if (!visiblePaymentMethods) {
+            dispatch(showPayments());
+        } else {
+            dispatch(hidePayments());
+        }
     }
 
-    const handlerhiddePayments = () => {
-        dispatch(hiddePayments());
-    }
-
-    return{ 
+    return {
         user,
         isLoading,
         visiblePaymentMethods,
         getUser,
-        handlershowPayments,
-        handlerhiddePayments
+        handlerPayments,
     }
 }
