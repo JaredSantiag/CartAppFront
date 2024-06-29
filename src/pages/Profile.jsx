@@ -8,6 +8,7 @@ export const Profile = () => {
 
     useEffect(() => {
         getUser();
+        visiblePaymentMethods;
     }, []);
 
     const hideCardNumber = (cardNumber) => {
@@ -69,19 +70,21 @@ export const Profile = () => {
                                     user.paymentMethods.map(({ id, cardNumber, monthExpiration, yearExpiration }) => (
                                         <tr key={id}>
                                             <td>
-                                                {(!visiblePaymentMethods)? hideCardNumber(cardNumber) : cardNumber}
+                                                {
+                                                (visiblePaymentMethods.includes(id))? hideCardNumber(cardNumber) : cardNumber
+                                                }
                                             </td>
                                             <td>
-                                                {(!visiblePaymentMethods)? hideExpiration(monthExpiration+"/"+yearExpiration) : monthExpiration+"/"+yearExpiration}
+                                                {(visiblePaymentMethods.includes(id))? hideExpiration(monthExpiration+"/"+yearExpiration) : monthExpiration+"/"+yearExpiration}
                                             </td>
                                             <td>
                                                 <button
                                                     type="button"
                                                     className="btn btn-secondary btn-sm"
-                                                    onClick={() => handlerPayments()}
+                                                    onClick={() => handlerPayments(id)}
                                                 >
                                                     <EyeFill className="me-2" />
-                                                    {(!visiblePaymentMethods)? 'show' : 'hide'}
+                                                    show
                                                 </button>
                                             </td>
                                             <td>

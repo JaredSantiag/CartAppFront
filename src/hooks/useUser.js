@@ -19,11 +19,11 @@ export const useUser = () => {
         }
     }
 
-    const handlerPayments = () => {
-        if (!visiblePaymentMethods) {
-            dispatch(showPayments());
+    const handlerPayments = (paymentMethod) => {
+        if (visiblePaymentMethods.includes(paymentMethod)) {
+            dispatch(hidePayments(paymentMethod));
         } else {
-            dispatch(hidePayments());
+            dispatch(showPayments(paymentMethod));
         }
     }
 

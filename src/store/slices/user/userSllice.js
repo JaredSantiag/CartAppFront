@@ -6,7 +6,7 @@ export const userSlice = createSlice({
     initialState: {
         user: {},
         isLoading: true,
-        visiblePaymentMethods: false
+        visiblePaymentMethods: []
     },
 
     reducers: {
@@ -14,11 +14,15 @@ export const userSlice = createSlice({
             state.user = payload;
             state.isLoading = false;
         },
-        showPayments: (state) => {
-            state.visiblePaymentMethods = true;
+        showPayments: (state, {payload}) => {
+            console.log(typeof(state.visiblePaymentMethods))
+            state.visiblePaymentMethods.push(payload);
+            console.log(typeof(state.visiblePaymentMethods))
         },
         hidePayments: (state) => {
-            state.visiblePaymentMethods = false;
+            let visiblePaymentMethodsAux = state.visiblePaymentMethods.slice();
+            visiblePaymentMethodsAux = visiblePaymentMethodsAux.filter(p => p !== payload);
+            state.visiblePaymentMethods = visiblePaymentMethodsAux;
         }
     }
 });
