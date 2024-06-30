@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useUser } from "../hooks/useUser"
-import { EyeFill, PencilSquare, Trash3Fill } from "react-bootstrap-icons";
+import { EyeFill, EyeSlashFill, PencilSquare, Trash3Fill } from "react-bootstrap-icons";
 
 export const Profile = () => {
 
@@ -71,11 +71,13 @@ export const Profile = () => {
                                         <tr key={id}>
                                             <td>
                                                 {
-                                                (visiblePaymentMethods.includes(id))? hideCardNumber(cardNumber) : cardNumber
+                                                    (!visiblePaymentMethods.includes(id)) ? hideCardNumber(cardNumber) : cardNumber
                                                 }
                                             </td>
                                             <td>
-                                                {(visiblePaymentMethods.includes(id))? hideExpiration(monthExpiration+"/"+yearExpiration) : monthExpiration+"/"+yearExpiration}
+                                                {
+                                                    (!visiblePaymentMethods.includes(id)) ? hideExpiration(monthExpiration + "/" + yearExpiration) : monthExpiration + "/" + yearExpiration
+                                                }
                                             </td>
                                             <td>
                                                 <button
@@ -83,8 +85,11 @@ export const Profile = () => {
                                                     className="btn btn-secondary btn-sm"
                                                     onClick={() => handlerPayments(id)}
                                                 >
-                                                    <EyeFill className="me-2" />
-                                                    show
+                                                    {
+                                                        (!visiblePaymentMethods.includes(id)) ?
+                                                            <span><EyeFill className="me-2" /> Show</span> :
+                                                            <span><EyeSlashFill className="me-2" /> Hide</span>
+                                                    }
                                                 </button>
                                             </td>
                                             <td>
@@ -134,12 +139,12 @@ export const Profile = () => {
                                             <td>{state}</td>
                                             <td>{country}</td>
                                             <td> <button
-                                                    type="button"
-                                                    className="btn btn-secondary btn-sm"
-                                                >
-                                                    <PencilSquare className="me-2" />
-                                                    Edit
-                                                </button>
+                                                type="button"
+                                                className="btn btn-secondary btn-sm"
+                                            >
+                                                <PencilSquare className="me-2" />
+                                                Edit
+                                            </button>
                                             </td>
                                             <td>
                                                 <button
