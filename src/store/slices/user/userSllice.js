@@ -5,8 +5,11 @@ export const userSlice = createSlice({
 
     initialState: {
         user: {},
+        address: {},
         isLoading: true,
-        visiblePaymentMethods: []
+        visiblePaymentMethods: [],
+        visibleModalPassword: false,
+        visibleModalAddress: false
     },
 
     reducers: {
@@ -21,6 +24,19 @@ export const userSlice = createSlice({
             let visiblePaymentMethodsAux = state.visiblePaymentMethods.slice();
             visiblePaymentMethodsAux = visiblePaymentMethodsAux.filter(p => p !== payload);
             state.visiblePaymentMethods = visiblePaymentMethodsAux;
+        },
+        openModalPassword: (state) => {
+            state.visibleModalPassword = true;
+        },
+        closeModalPassword: (state) => {
+            state.visibleModalPassword = false;
+        },
+        openModalAddress: (state, action) => {
+            state.address = action.payload;
+            state.visibleModalEdit = true;
+        },
+        closeModalAddress: (state) => {
+            state.visibleModalEdit = false;
         }
     }
 });
@@ -28,5 +44,11 @@ export const userSlice = createSlice({
 export const {
     loadingUser,
     showPayments,
-    hidePayments
+    hidePayments,
+    visibleModalPassword,
+    visibleModalAddress,
+    openModalPassword,
+    closeModalPassword,
+    openModalAddress,
+    closeModalAddress
 } = userSlice.actions

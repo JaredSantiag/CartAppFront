@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { find } from "../services/userService";
-import { loadingUser, showPayments, hidePayments } from "../store/slices/user/userSllice";
+import { loadingUser, showPayments, hidePayments, openModalPassword, closeModalPassword, openModalAddress, closeModalAddress } from "../store/slices/user/userSllice";
 
 export const useUser = () => {
 
-    const { user, isLoading, visiblePaymentMethods } = useSelector(state => state.user);
+    const { user, isLoading, visiblePaymentMethods, visibleModalPassword, visibleModalAddress } = useSelector(state => state.user);
 
     const dispatch = useDispatch();
 
@@ -27,11 +27,33 @@ export const useUser = () => {
         }
     }
 
+    const handlerOpenModalPassword = () => {
+        dispatch(openModalPassword());
+    }
+
+    const handlerCloseModalPassword = () => {
+        dispatch(closeModalPassword());
+    }
+
+    const handlerOpenModalAddress = (address) => {
+        dispatch(openModalAddress( address ));
+    }
+
+    const handlerCloseModal = () => {
+        dispatch(closeModalAddress());
+    }
+
     return {
         user,
         isLoading,
         visiblePaymentMethods,
+        visibleModalPassword,
+        visibleModalAddress,
         getUser,
         handlerPayments,
+        handlerOpenModalPassword,
+        handlerCloseModalPassword,
+        handlerOpenModalAddress,
+        handlerCloseModal
     }
 }

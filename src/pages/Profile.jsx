@@ -1,10 +1,20 @@
 import { useEffect } from "react";
 import { useUser } from "../hooks/useUser"
 import { EyeFill, EyeSlashFill, PencilSquare, Trash3Fill } from "react-bootstrap-icons";
+import { PasswordMoodal } from "../components/PasswordModal";
 
 export const Profile = () => {
 
-    const { user, isLoading, visiblePaymentMethods, getUser, handlerPayments } = useUser();
+    const { 
+        user, 
+        isLoading, 
+        visiblePaymentMethods, 
+        visibleModalPassword, 
+        visibleModalAddress, 
+        handlerOpenModalPassword,
+        getUser, 
+        handlerPayments 
+    } = useUser();
 
     useEffect(() => {
         getUser();
@@ -34,7 +44,11 @@ export const Profile = () => {
         )
     }
 
-    return (
+    return (<>
+        {!visibleModalPassword ||
+            <PasswordMoodal />
+        }
+
         <div>
             <dl>
                 <dt>Username</dt>
@@ -46,7 +60,7 @@ export const Profile = () => {
             </dl>
 
             <div className="mb-3">
-                <button type="button" className="btn btn-primary">Change password</button>
+                <button type="button" className="btn btn-primary" onClick={() => handlerOpenModalPassword()}>Change password</button>
             </div>
 
 
@@ -164,5 +178,5 @@ export const Profile = () => {
                 </div>
             </div>
         </div >
-    )
+    </>)
 }
