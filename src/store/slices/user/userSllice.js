@@ -33,10 +33,10 @@ export const userSlice = createSlice({
         },
         openModalAddress: (state, action) => {
             state.address = action.payload;
-            state.visibleModalEdit = true;
+            state.visibleModalAddress = true;
         },
         closeModalAddress: (state) => {
-            state.visibleModalEdit = false;
+            state.visibleModalAddress = false;
         }
     }
 });

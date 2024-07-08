@@ -1,6 +1,6 @@
 import { useUser } from "../hooks/useUser";
 
-export const PasswordMoodal = () => {
+export const PasswordModal = () => {
 
     const { visibleModalPassword, handlerCloseModalPassword } = useUser();
 

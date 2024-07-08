@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { useUser } from "../hooks/useUser"
 import { EyeFill, EyeSlashFill, PencilSquare, Trash3Fill } from "react-bootstrap-icons";
-import { PasswordMoodal } from "../components/PasswordModal";
+import { PasswordModal } from "../components/PasswordModal";
+import { AddressModal } from "../components/AddressModal";
 
 export const Profile = () => {
 
@@ -12,6 +13,7 @@ export const Profile = () => {
         visibleModalPassword, 
         visibleModalAddress, 
         handlerOpenModalPassword,
+        handlerOpenModalAddress,
         getUser, 
         handlerPayments 
     } = useUser();
@@ -46,7 +48,11 @@ export const Profile = () => {
 
     return (<>
         {!visibleModalPassword ||
-            <PasswordMoodal />
+            <PasswordModal />
+        }
+
+        {!visibleModalAddress ||
+            <AddressModal />
         }
 
         <div>
@@ -143,18 +149,19 @@ export const Profile = () => {
                                     </tr>
                                 </thead>
                                 <tbody>{
-                                    user.addresses.map(({ id, street, number, suburb, postCode, city, state, country }) => (
-                                        <tr key={id}>
-                                            <td>{street}</td>
-                                            <td>{number}</td>
-                                            <td>{suburb}</td>
-                                            <td>{postCode}</td>
-                                            <td>{city}</td>
-                                            <td>{state}</td>
-                                            <td>{country}</td>
+                                    user.addresses.map((address) => (
+                                        <tr key={address.id}>
+                                            <td>{address.street}</td>
+                                            <td>{address.number}</td>
+                                            <td>{address.suburb}</td>
+                                            <td>{address.postCode}</td>
+                                            <td>{address.city}</td>
+                                            <td>{address.state}</td>
+                                            <td>{address.country}</td>
                                             <td> <button
                                                 type="button"
                                                 className="btn btn-secondary btn-sm"
+                                                onClick={() => handlerOpenModalAddress(address)}
                                             >
                                                 <PencilSquare className="me-2" />
                                                 Edit

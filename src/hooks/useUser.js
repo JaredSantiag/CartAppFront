@@ -4,7 +4,7 @@ import { loadingUser, showPayments, hidePayments, openModalPassword, closeModalP
 
 export const useUser = () => {
 
-    const { user, isLoading, visiblePaymentMethods, visibleModalPassword, visibleModalAddress } = useSelector(state => state.user);
+    const { user, isLoading, visiblePaymentMethods, visibleModalPassword, visibleModalAddress, address } = useSelector(state => state.user);
 
     const dispatch = useDispatch();
 
@@ -39,7 +39,7 @@ export const useUser = () => {
         dispatch(openModalAddress( address ));
     }
 
-    const handlerCloseModal = () => {
+    const handlerCloseModalAddress = () => {
         dispatch(closeModalAddress());
     }
 
@@ -49,11 +49,12 @@ export const useUser = () => {
         visiblePaymentMethods,
         visibleModalPassword,
         visibleModalAddress,
+        address,
         getUser,
         handlerPayments,
         handlerOpenModalPassword,
         handlerCloseModalPassword,
         handlerOpenModalAddress,
-        handlerCloseModal
+        handlerCloseModalAddress
     }
 }
