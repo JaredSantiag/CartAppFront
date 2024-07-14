@@ -17,6 +17,14 @@ export const userSlice = createSlice({
             state.user = payload;
             state.isLoading = false;
         },
+        saveAddress: (state, {payload}) => {
+            state.address = [
+                ... state.address,
+                {
+                    ...payload       
+                }
+            ];
+        },
         showPayments: (state, {payload}) => {
             state.visiblePaymentMethods.push(payload);
         },
@@ -43,6 +51,7 @@ export const userSlice = createSlice({
 
 export const {
     loadingUser,
+    saveAddress,
     showPayments,
     hidePayments,
     visibleModalPassword,

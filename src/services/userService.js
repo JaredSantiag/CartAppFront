@@ -15,13 +15,13 @@ export const find = async () => {
     }
 }
 
-export const updateAddress = async ({ id, street, number, suburb, postCodde, city, state, country}) => {
+export const updateAddress = async ({ id, street, number, suburb, postCode, city, state, country}) => {
     try {
         return await addressApi.put(`${BASE_URL}/${id}`, {
             street,
             number,
             suburb,
-            postCodde,
+            postCode,
             city,
             state,
             country

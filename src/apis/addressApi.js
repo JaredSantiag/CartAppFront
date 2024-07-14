@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const addressApi = axios.create({
-    baseURL: `${import.meta.env.VITE_API_BASE_URL}/paymentmethods`
+    baseURL: `${import.meta.env.VITE_API_BASE_URL}/address`
 });
 
 addressApi.interceptors.request.use(config => {

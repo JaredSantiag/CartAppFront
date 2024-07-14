@@ -3,11 +3,7 @@ import { useUser } from "../hooks/useUser";
 
 export const AddressModal = () => {
 
-    const { visibleModalAddress, address, handlerCloseModalAddress } = useUser();
-
-    const onSubmit = (event) => {
-        event.preventDefault();
-    }
+    const { visibleModalAddress, address, handlerSaveAddress, handlerCloseModalAddress } = useUser();
 
     const [addressForm, setAddressForm] = useState(address);
 
@@ -23,6 +19,12 @@ export const AddressModal = () => {
             ...addressForm,
             [name]: value
         })
+    }
+
+    const onSubmit = (event) => {
+        event.preventDefault();
+        handlerSaveAddress(addressForm);
+        handlerCloseModalAddress();
     }
 
     const { id, street, number, suburb, postCode, city, state, country } = addressForm;
