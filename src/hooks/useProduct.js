@@ -74,7 +74,7 @@ export const useProduct = () => {
         if (!login.isAdmin) return;
 
         Swal.fire({
-            title: '¿Esta seguro que desea elimina?',
+            title: '¿Esta seguro que desea eliminar?',
             text: "Cuidado, el producto sera eliminado",
             icon: 'warning',
             showCancelButton: true,

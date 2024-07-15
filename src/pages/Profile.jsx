@@ -6,16 +6,18 @@ import { AddressModal } from "../components/AddressModal";
 
 export const Profile = () => {
 
-    const { 
-        user, 
-        isLoading, 
-        visiblePaymentMethods, 
-        visibleModalPassword, 
-        visibleModalAddress, 
+    const {
+        user,
+        isLoading,
+        visiblePaymentMethods,
+        visibleModalPassword,
+        visibleModalAddress,
+        handlerRemoveAddress,
+        handlerRemovePaymentMethod,
         handlerOpenModalPassword,
         handlerOpenModalAddress,
-        getUser, 
-        handlerPayments 
+        getUser,
+        handlerPayments
     } = useUser();
 
     useEffect(() => {
@@ -116,6 +118,7 @@ export const Profile = () => {
                                                 <button
                                                     type="button"
                                                     className="btn btn-danger btn-sm"
+                                                    onClick={() => handlerRemovePaymentMethod(id)}
                                                 >
                                                     <Trash3Fill className="me-2" />
                                                     Delete
@@ -125,6 +128,8 @@ export const Profile = () => {
                                     ))
                                 }</tbody>
                             </table>
+
+                            <button type="button" className="btn btn-primary">Add Payment Method</button>
                         </div>
                     </div>
                 </div>
@@ -171,6 +176,7 @@ export const Profile = () => {
                                                 <button
                                                     type="button"
                                                     className="btn btn-danger btn-sm"
+                                                    onClick={() => handlerRemoveAddress(address.id)}
                                                 >
                                                     <Trash3Fill className="me-2" />
                                                     Delete
@@ -180,6 +186,8 @@ export const Profile = () => {
                                     ))
                                 }</tbody>
                             </table>
+
+                            <button type="button" className="btn btn-primary">Add Aadress</button>
                         </div>
                     </div>
                 </div>

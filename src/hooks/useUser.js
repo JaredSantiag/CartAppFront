@@ -1,6 +1,18 @@
 import { useDispatch, useSelector } from "react-redux";
-import { find, updateAddress } from "../services/userService";
-import { loadingUser, saveAddress, showPayments, hidePayments, openModalPassword, closeModalPassword, openModalAddress, closeModalAddress } from "../store/slices/user/userSllice";
+import { find, updateAddress, removeAddress, removePaymentMethod } from "../services/userService";
+import {
+    loadingUser,
+    saveAddress,
+    deleteAddress,
+    deletePaymentMethod,
+    showPayments,
+    hidePayments,
+    openModalPassword,
+    closeModalPassword,
+    openModalAddress,
+    closeModalAddress,
+
+} from "../store/slices/user/userSllice";
 import Swal from "sweetalert2";
 import { useAuth } from "../auth/hooks/useAuth";
 
@@ -25,7 +37,6 @@ export const useUser = () => {
 
     const handlerSaveAddress = async (address) => {
         try {
-            address.postCode = address.postCode.toString()
             let response = await updateAddress(address);
             dispatch(saveAddress(response.data));
 
@@ -40,8 +51,8 @@ export const useUser = () => {
         } catch (error) {
             if (error.response && error.response.status == 400) {
                 Swal.fire(
-                    'Ocurrio un problema', 
-                    error.response.data, 
+                    'Ocurrio un problema',
+                    error.response.data,
                     'error');
             } else if (error.response?.status == 401) {
                 handlerLogout();
@@ -50,6 +61,62 @@ export const useUser = () => {
                 throw error;
             }
         }
+    }
+
+    const handlerRemoveAddress = (id) => {
+        Swal.fire({
+            title: '¿Esta seguro que desea eliminar?',
+            text: "Cuidado, su dirección sera eliminado",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, eliminar'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    await removeAddress(id);
+                    dispatch(deleteAddress(id))
+                    Swal.fire(
+                        'Dirección eliminado',
+                        'Dirección eliminado correctamente',
+                        'success'
+                    )
+                } catch (error) {
+                    if (error.response?.status == 401) {
+                        handlerLogout();
+                    }
+                }
+            }
+        })
+    }
+
+    const handlerRemovePaymentMethod = (id) => {
+        Swal.fire({
+            title: '¿Esta seguro que desea eliminar?',
+            text: "Cuidado, su metodo de pago sera eliminado",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, eliminar'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    await removePaymentMethod(id);
+                    dispatch(deletePaymentMethod(id))
+                    Swal.fire(
+                        'Metodo de pago eliminado',
+                        'Metodod de pago eliminado correctamente',
+                        'success'
+                    )
+                } catch (error) {
+                    if (error.response?.status == 401) {
+                        handlerLogout();
+                    }
+                }
+            }
+        })
     }
 
     const handlerPayments = (paymentMethod) => {
@@ -69,7 +136,7 @@ export const useUser = () => {
     }
 
     const handlerOpenModalAddress = (address) => {
-        dispatch(openModalAddress( address ));
+        dispatch(openModalAddress(address));
     }
 
     const handlerCloseModalAddress = () => {
@@ -85,6 +152,8 @@ export const useUser = () => {
         address,
         getUser,
         handlerSaveAddress,
+        handlerRemoveAddress,
+        handlerRemovePaymentMethod,
         handlerPayments,
         handlerOpenModalPassword,
         handlerCloseModalPassword,

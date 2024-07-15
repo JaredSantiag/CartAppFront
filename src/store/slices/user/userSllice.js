@@ -17,13 +17,15 @@ export const userSlice = createSlice({
             state.user = payload;
             state.isLoading = false;
         },
-        saveAddress: (state, {payload}) => {
-            state.address = [
-                ... state.address,
-                {
-                    ...payload       
-                }
-            ];
+        saveAddress: (state, { payload }) => {
+            const index = state.user.addresses.findIndex(address => address.id === payload.id);
+            state.user.addresses[index] = { ...payload }
+        },
+        deleteAddress: (state, { payload }) => {
+            state.user.addresses = state.user.addresses.filter(address => address.id !== payload);
+        },
+        deletePaymentMethod: (state, { payload }) => {
+            state.user.paymentMethods = state.user.paymentMethods.filter(paymentMethod => paymentMethod.id !== payload);
         },
         showPayments: (state, {payload}) => {
             state.visiblePaymentMethods.push(payload);
@@ -52,6 +54,8 @@ export const userSlice = createSlice({
 export const {
     loadingUser,
     saveAddress,
+    deleteAddress,
+    deletePaymentMethod,
     showPayments,
     hidePayments,
     visibleModalPassword,
