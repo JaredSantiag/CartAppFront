@@ -15,6 +15,22 @@ export const find = async () => {
     }
 }
 
+export const createAddress = async ({ street, number, suburb, postCode, city, state, country}) => {
+    try {
+        return await addressApi.post(BASE_URL, {
+            street,
+            number,
+            suburb,
+            postCode,
+            city,
+            state,
+            country
+        });
+    } catch (error) {
+        throw error;
+    }
+}
+
 export const updateAddress = async ({ id, street, number, suburb, postCode, city, state, country}) => {
     try {
         return await addressApi.put(`${BASE_URL}/${id}`, {

@@ -18,8 +18,17 @@ export const userSlice = createSlice({
             state.isLoading = false;
         },
         saveAddress: (state, { payload }) => {
-            const index = state.user.addresses.findIndex(address => address.id === payload.id);
-            state.user.addresses[index] = { ...payload }
+            if(payload.id>1){
+                const index = state.user.addresses.findIndex(address => address.id === payload.id);
+                state.user.addresses[index] = { ...payload }
+            }else{
+                state.user.addresses = [
+                    ... state.user.addresses,
+                    {
+                        ...action.payload       
+                    }
+                ];
+            }
         },
         deleteAddress: (state, { payload }) => {
             state.user.addresses = state.user.addresses.filter(address => address.id !== payload);

@@ -187,7 +187,12 @@ export const Profile = () => {
                                 }</tbody>
                             </table>
 
-                            <button type="button" className="btn btn-primary">Add Aadress</button>
+                            <button 
+                                type="button" 
+                                className="btn btn-primary"
+                                onClick={() => handlerOpenModalAddress(null)}>
+                            Add Address
+                            </button>
                         </div>
                     </div>
                 </div>

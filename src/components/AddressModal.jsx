@@ -36,7 +36,7 @@ export const AddressModal = () => {
                     <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title">
-                                Edit address
+                                {address.id > 0 ? 'Edit Address' : 'Add Address'}
                             </h5>
                         </div>
                         <form onSubmit={onSubmit}>

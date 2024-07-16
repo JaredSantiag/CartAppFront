@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { find, updateAddress, removeAddress, removePaymentMethod } from "../services/userService";
+import { find, createAddress, updateAddress, removeAddress, removePaymentMethod } from "../services/userService";
 import {
     loadingUser,
     saveAddress,
@@ -36,17 +36,25 @@ export const useUser = () => {
     }
 
     const handlerSaveAddress = async (address) => {
+        let response;
         try {
-            let response = await updateAddress(address);
+            if (address.id > 0) {
+                response = await updateAddress(address);
+            } else {
+                response = await createAddress(address);
+            }
+
             dispatch(saveAddress(response.data));
 
-            Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "Direccion actualizada",
-                showConfirmButton: false,
-                timer: 1500
-            });
+            Swal.fire(
+                (address.id === 0) ?
+                    'Dirección creado' :
+                    'Dirección actualizado',
+                (address.id === 0) ?
+                    'La dirección ha sido creado correctamente' :
+                    'La dirección ha sido actualizado correctamente',
+                'success'
+            );
 
         } catch (error) {
             if (error.response && error.response.status == 400) {
@@ -136,6 +144,18 @@ export const useUser = () => {
     }
 
     const handlerOpenModalAddress = (address) => {
+        if (address == null) {
+            address = {
+                id: 0,
+                street: '',
+                number: '',
+                suburb: '',
+                postCode: '',
+                city: '',
+                state: '',
+                country: ''
+            }
+        }
         dispatch(openModalAddress(address));
     }
 
