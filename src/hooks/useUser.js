@@ -7,8 +7,10 @@ import {
     deletePaymentMethod,
     showPayments,
     hidePayments,
-    openModalPassword,
-    closeModalPassword,
+    openModalUser,
+    closeModalUser,
+    openModalPayment,
+    closeModalPayment,
     openModalAddress,
     closeModalAddress,
 
@@ -18,7 +20,7 @@ import { useAuth } from "../auth/hooks/useAuth";
 
 export const useUser = () => {
 
-    const { user, isLoading, visiblePaymentMethods, visibleModalPassword, visibleModalAddress, address } = useSelector(state => state.user);
+    const { user, isLoading, visiblePaymentMethods, visibleModalUser, visibleModalAddress, visibleModalPayment, address } = useSelector(state => state.user);
 
     const { handlerLogout } = useAuth();
 
@@ -44,7 +46,7 @@ export const useUser = () => {
                 response = await createAddress(address);
             }
 
-            dispatch(saveAddress(response.data));
+            dispatch(saveAddress(address));
 
             Swal.fire(
                 (address.id === 0) ?
@@ -99,6 +101,42 @@ export const useUser = () => {
         })
     }
 
+    const handlerSavePayment = async (paymentMethod) => {
+        let response;
+        try {
+            if (paymentMethod.id > 0) {
+                response = await updateAddress(paymentMethod);
+            } else {
+                response = await createAddress(paymentMethod);
+            }
+
+            dispatch(saveAddress(address));
+
+            Swal.fire(
+                (address.id === 0) ?
+                    'Dirección creado' :
+                    'Dirección actualizado',
+                (address.id === 0) ?
+                    'La dirección ha sido creado correctamente' :
+                    'La dirección ha sido actualizado correctamente',
+                'success'
+            );
+
+        } catch (error) {
+            if (error.response && error.response.status == 400) {
+                Swal.fire(
+                    'Ocurrio un problema',
+                    error.response.data,
+                    'error');
+            } else if (error.response?.status == 401) {
+                handlerLogout();
+            }
+            else {
+                throw error;
+            }
+        }
+    }
+
     const handlerRemovePaymentMethod = (id) => {
         Swal.fire({
             title: '¿Esta seguro que desea eliminar?',
@@ -135,12 +173,12 @@ export const useUser = () => {
         }
     }
 
-    const handlerOpenModalPassword = () => {
-        dispatch(openModalPassword());
+    const handlerOpenModalUser = () => {
+        dispatch(openModalUser());
     }
 
-    const handlerCloseModalPassword = () => {
-        dispatch(closeModalPassword());
+    const handlerCloseModalUser = () => {
+        dispatch(closeModalUser());
     }
 
     const handlerOpenModalAddress = (address) => {
@@ -163,21 +201,41 @@ export const useUser = () => {
         dispatch(closeModalAddress());
     }
 
+    const handlerOpenModalPayment = (paymentMethod) => {
+        if (paymentMethod == null) {
+            paymentMethod = {
+                id: 0,
+                cardNumber: '',
+                monthExpiration: '',
+                yearExpiration: '',
+                securityCode: '',
+            }
+        }
+        dispatch(openModalPayment(paymentMethod));
+    }
+
+    const handlerCloseModalPayment = () => {
+        dispatch(closeModalPayment());
+    }
+
     return {
         user,
         isLoading,
         visiblePaymentMethods,
-        visibleModalPassword,
+        visibleModalUser,
         visibleModalAddress,
+        visibleModalPayment,
         address,
         getUser,
         handlerSaveAddress,
         handlerRemoveAddress,
         handlerRemovePaymentMethod,
         handlerPayments,
-        handlerOpenModalPassword,
-        handlerCloseModalPassword,
+        handlerOpenModalUser,
+        handlerCloseModalUser,
         handlerOpenModalAddress,
-        handlerCloseModalAddress
+        handlerCloseModalAddress,
+        handlerOpenModalPayment,
+        handlerCloseModalPayment
     }
 }

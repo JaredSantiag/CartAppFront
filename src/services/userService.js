@@ -55,6 +55,22 @@ export const removeAddress = async (id) => {
     }
 }
 
+export const createPaymentMethod = async ({ street, number, suburb, postCode, city, state, country}) => {
+    try {
+        return await addressApi.post(BASE_URL, {
+            street,
+            number,
+            suburb,
+            postCode,
+            city,
+            state,
+            country
+        });
+    } catch (error) {
+        throw error;
+    }
+}
+
 export const removePaymentMethod = async (id) => {
     try {
         await paymentMethodApi.delete(`${BASE_URL}/${id}`);
