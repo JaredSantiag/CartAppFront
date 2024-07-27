@@ -7,10 +7,24 @@ const BASE_URL = '';
 
 export const find = async () => {
     try {
-        const response = await userApi.get(BASE_URL);
+        const response = await userApi.get(BASE_URL+"/me");
         return response;
     } catch (error) {
         console.error(error);
+        throw error;
+    }
+}
+
+export const updateUser = async (email, password, phoneNumber, username) => {
+    try{
+        return await userApi.put(BASE_URL, {
+            email,
+            password,
+            phoneNumber,
+            username
+        })
+    } catch (error){
+        console.log(error);
         throw error;
     }
 }

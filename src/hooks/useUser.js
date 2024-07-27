@@ -1,19 +1,23 @@
 import { useDispatch, useSelector } from "react-redux";
-import { find, createAddress, updateAddress, removeAddress, removePaymentMethod } from "../services/userService";
+import { find, createAddress, updateUser, updateAddress, removeAddress, removePaymentMethod, createPaymentMethod } from "../services/userService";
 import {
     loadingUser,
+    saveUser,
     saveAddress,
+    savePaymentMethod,
     deleteAddress,
     deletePaymentMethod,
     showPayments,
     hidePayments,
+    visibleModalUser,
+    visibleModalAddress,
+    visibleModalPayment,
     openModalUser,
     closeModalUser,
-    openModalPayment,
-    closeModalPayment,
     openModalAddress,
     closeModalAddress,
-
+    openModalPayment,
+    closeModalPayment
 } from "../store/slices/user/userSllice";
 import Swal from "sweetalert2";
 import { useAuth } from "../auth/hooks/useAuth";
@@ -37,13 +41,22 @@ export const useUser = () => {
         }
     }
 
+    const handlerSaveUser = async (user) => {
+        const response = await updateUser(user);
+        dispatch(saveUser(response));
+        Swal.fire(
+            'Datos actualizados correctamente',
+            'Sus datos se han actualizado correctamente ',
+            'success'
+        );
+    }
+
     const handlerSaveAddress = async (address) => {
-        let response;
         try {
             if (address.id > 0) {
-                response = await updateAddress(address);
+                await updateAddress(address);
             } else {
-                response = await createAddress(address);
+                await createAddress(address);
             }
 
             dispatch(saveAddress(address));
@@ -101,24 +114,23 @@ export const useUser = () => {
         })
     }
 
-    const handlerSavePayment = async (paymentMethod) => {
-        let response;
+    const handlerSavePaymentMethod = async (paymentMethod) => {
         try {
             if (paymentMethod.id > 0) {
-                response = await updateAddress(paymentMethod);
+                await updateAddress(paymentMethod);
             } else {
-                response = await createAddress(paymentMethod);
+                await createAddress(paymentMethod);
             }
 
-            dispatch(saveAddress(address));
+            dispatch(savePaymentMethod(paymentMethod));
 
             Swal.fire(
-                (address.id === 0) ?
-                    'Dirección creado' :
-                    'Dirección actualizado',
-                (address.id === 0) ?
-                    'La dirección ha sido creado correctamente' :
-                    'La dirección ha sido actualizado correctamente',
+                (paymentMethod.id === 0) ?
+                    'Metodo de pago añadido' :
+                    'Metodo de pago actualizado',
+                (paymentMethod.id === 0) ?
+                    'El metodo de pago ha sido creado correctamente' :
+                    'El metodo de pago ha sido actualizado correctamente',
                 'success'
             );
 
@@ -173,8 +185,8 @@ export const useUser = () => {
         }
     }
 
-    const handlerOpenModalUser = () => {
-        dispatch(openModalUser());
+    const handlerOpenModalUser = (user) => {
+        dispatch(openModalUser(user));
     }
 
     const handlerCloseModalUser = () => {
@@ -227,8 +239,10 @@ export const useUser = () => {
         visibleModalPayment,
         address,
         getUser,
+        handlerSaveUser,
         handlerSaveAddress,
         handlerRemoveAddress,
+        handlerSavePaymentMethod,
         handlerRemovePaymentMethod,
         handlerPayments,
         handlerOpenModalUser,

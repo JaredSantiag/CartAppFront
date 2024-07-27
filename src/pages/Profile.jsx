@@ -1,8 +1,9 @@
 import { useEffect } from "react";
 import { useUser } from "../hooks/useUser"
 import { EyeFill, EyeSlashFill, PencilSquare, Trash3Fill } from "react-bootstrap-icons";
-import { PasswordModal } from "../components/PasswordModal";
+import { UserModal } from "../components/UserModal";
 import { AddressModal } from "../components/AddressModal";
+import { PaymentMethodModal } from "../components/PaymentMethodModal";
 
 export const Profile = () => {
 
@@ -10,14 +11,16 @@ export const Profile = () => {
         user,
         isLoading,
         visiblePaymentMethods,
-        visibleModalPassword,
+        visibleModalUser,
         visibleModalAddress,
+        visibleModalPayment,
+        getUser,
         handlerRemoveAddress,
         handlerRemovePaymentMethod,
-        handlerOpenModalPassword,
+        handlerPayments,
+        handlerOpenModalUser,
         handlerOpenModalAddress,
-        getUser,
-        handlerPayments
+        handlerOpenModalPayment
     } = useUser();
 
     useEffect(() => {
@@ -49,12 +52,16 @@ export const Profile = () => {
     }
 
     return (<>
-        {!visibleModalPassword ||
-            <PasswordModal />
+        {!visibleModalUser ||
+            <UserModal />
         }
 
         {!visibleModalAddress ||
             <AddressModal />
+        }
+
+        {!visibleModalPayment ||
+            <PaymentMethodModal />
         }
 
         <div>
@@ -68,7 +75,7 @@ export const Profile = () => {
             </dl>
 
             <div className="mb-3">
-                <button type="button" className="btn btn-primary" onClick={() => handlerOpenModalPassword()}>Change password</button>
+                <button type="button" className="btn btn-primary" onClick={() => handlerOpenModalUser(user)}>Edit profile</button>
             </div>
 
 
@@ -129,7 +136,7 @@ export const Profile = () => {
                                 }</tbody>
                             </table>
 
-                            <button type="button" className="btn btn-primary">Add Payment Method</button>
+                            <button type="button" className="btn btn-primary" onClick={() => handlerOpenModalPayment()}>Add Payment Method</button>
                         </div>
                     </div>
                 </div>
@@ -187,11 +194,11 @@ export const Profile = () => {
                                 }</tbody>
                             </table>
 
-                            <button 
-                                type="button" 
+                            <button
+                                type="button"
                                 className="btn btn-primary"
                                 onClick={() => handlerOpenModalAddress(null)}>
-                            Add Address
+                                Add Address
                             </button>
                         </div>
                     </div>

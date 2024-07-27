@@ -19,6 +19,9 @@ export const userSlice = createSlice({
             state.user = payload;
             state.isLoading = false;
         },
+        saveUser: (state, { payload }) => {
+            state.user = payload;
+        },
         saveAddress: (state, { payload }) => {
             if (payload.id > 1) {
                 const index = state.user.addresses.findIndex(address => address.id === payload.id);
@@ -31,6 +34,14 @@ export const userSlice = createSlice({
                     }
                 ];
             }
+        },
+        savePaymentMethod: (state, { payload }) => {
+            state.user.paymentMethods = [
+                ...state.user.paymentMethods,
+                {
+                    ...payload
+                }
+            ];
         },
         deleteAddress: (state, { payload }) => {
             state.user.addresses = state.user.addresses.filter(address => address.id !== payload);
@@ -72,7 +83,9 @@ export const userSlice = createSlice({
 
 export const {
     loadingUser,
+    saveUser,
     saveAddress,
+    savePaymentMethod,
     deleteAddress,
     deletePaymentMethod,
     showPayments,
