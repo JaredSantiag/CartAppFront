@@ -9,9 +9,6 @@ import {
     deletePaymentMethod,
     showPayments,
     hidePayments,
-    visibleModalUser,
-    visibleModalAddress,
-    visibleModalPayment,
     openModalUser,
     closeModalUser,
     openModalAddress,
@@ -24,7 +21,7 @@ import { useAuth } from "../auth/hooks/useAuth";
 
 export const useUser = () => {
 
-    const { user, isLoading, visiblePaymentMethods, visibleModalUser, visibleModalAddress, visibleModalPayment, address } = useSelector(state => state.user);
+    const { user, isLoading, visiblePaymentMethods, visibleModalUser, visibleModalAddress, visibleModalPayment, address, paymentMethod } = useSelector(state => state.user);
 
     const { handlerLogout } = useAuth();
 
@@ -116,10 +113,8 @@ export const useUser = () => {
 
     const handlerSavePaymentMethod = async (paymentMethod) => {
         try {
-            if (paymentMethod.id > 0) {
-                await updateAddress(paymentMethod);
-            } else {
-                await createAddress(paymentMethod);
+            if (paymentMethod.id == 0) {
+                await createPaymentMethod(paymentMethod);
             }
 
             dispatch(savePaymentMethod(paymentMethod));
@@ -238,6 +233,7 @@ export const useUser = () => {
         visibleModalAddress,
         visibleModalPayment,
         address,
+        paymentMethod,
         getUser,
         handlerSaveUser,
         handlerSaveAddress,

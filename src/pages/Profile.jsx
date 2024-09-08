@@ -136,7 +136,7 @@ export const Profile = () => {
                                 }</tbody>
                             </table>
 
-                            <button type="button" className="btn btn-primary" onClick={() => handlerOpenModalPayment()}>Add Payment Method</button>
+                            <button type="button" className="btn btn-primary" onClick={() => handlerOpenModalPayment(null)}>Add Payment Method</button>
                         </div>
                     </div>
                 </div>

@@ -3,29 +3,31 @@ import { useUser } from "../hooks/useUser";
 
 export const PaymentMethodModal = () => {
 
-    const { visibleModalPayment, handlerCloseModalPayment } = useUser();
+    const { visibleModalPayment, paymentMethod, handlerSavePaymentMethod, handlerCloseModalPayment } = useUser();
 
-    const [userForm, setUserForm] = useState(user);
+    const [paymentForm, setPaymentForm] = useState(paymentMethod);
 
     useEffect(() => {
-        setUserForm({
-            ...user
+        setPaymentForm({
+            ...paymentMethod
         })
-    }, [user])
+    }, [paymentMethod])
 
     const onInputChange = ({ target }) => {
         const { name, value } = target;
-        setUserForm({
-            ...userForm,
+        setPaymentForm({
+            ...paymentForm,
             [name]: value
         })
     }
 
     const onSubmit = (event) => {
         event.preventDefault();
+        handlerSavePaymentMethod(paymentForm);
+        handlerCloseModalPayment();
     }
 
-    const { email, password, phoneNumber, username } = userForm;
+    const { id, cardNumber, monthExpiration, yearExpiration, securityCode } = paymentForm;
 
     return (
         <div className="abrir-modal animacion fadeIn">
@@ -39,7 +41,39 @@ export const PaymentMethodModal = () => {
                         </div>
                         <div className="modal-body">
                             <form onSubmit={onSubmit}>
-                                
+                                <input type="hidden" name="id" value={id} />
+
+                                <input className="form-control my-3 w-75"
+                                    type="password"
+                                    placeholder="Card Number"
+                                    name="cardNumber"
+                                    value={cardNumber}
+                                    onChange={onInputChange}
+                                />
+
+                                <input className="form-control my-3 w-75"
+                                    type="password"
+                                    placeholder="Month Of Expiration"
+                                    name="monthExpiration"
+                                    value={monthExpiration}
+                                    onChange={onInputChange}
+                                />
+
+                                <input className="form-control my-3 w-75"
+                                    type="password"
+                                    placeholder="Year Of Expiration"
+                                    name="yearExpiration"
+                                    value={yearExpiration}
+                                    onChange={onInputChange}
+                                />
+
+                                <input className="form-control my-3 w-75"
+                                    type="password"
+                                    placeholder="Security Code"
+                                    name="securityCode"
+                                    value={securityCode}
+                                    onChange={onInputChange}
+                                />
 
                                 <button
                                     className="btn btn-primary"
