@@ -1,0 +1,15 @@
+.principal-login {
+    min-height: 35rem;
+}
+
+.column-login {
+    position: relative;
+}
+
+.modal-login {
+    position: absolute;
+}
+
+.modal-body {
+    min-height: 20rem;
+}

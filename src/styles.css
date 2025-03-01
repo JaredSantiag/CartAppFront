@@ -1,3 +1,7 @@
+body {
+    background-color: #f5f5f5 !important;
+}
+
 .abrir-modal {
     background-color: rgba(0, 0, 0, 0.7);
     position: fixed;
